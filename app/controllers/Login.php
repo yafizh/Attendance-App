@@ -12,9 +12,11 @@ class Login extends Controller
         $d = $this->model('Login_model')->getLogin();
 
         if ($d == 'login') {
+            $_SESSION['login'] = 'admin';
             header('location: ' . BASEURL . '/Home');
         } else {
-            header('location: ' . BASEURL . '/login');
+            $_SESSION['login'] = 'arya';
+            header('location: ' . BASEURL . '/Employee/name/arya');
         }
     }
 }
