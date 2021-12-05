@@ -1,3 +1,10 @@
+<?php
+if (!isset($_SESSION["login"])) {
+	header('location: ' . BASEURL . '/login');
+	exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,10 +37,7 @@
 
 			<!-- Sidebar - Brand -->
 			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fas fa-laugh-wink"></i>
-				</div>
-				<div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+				<div class="sidebar-brand-text mx-3">Attendance App</div>
 			</a>
 
 			<!-- Divider -->
@@ -80,9 +84,7 @@
 						<div class="bg-white py-2 collapse-inner rounded">
 							<!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
 							<a class="collapse-item" href="Attendance">Presensi Hari ini</a>
-							<!-- <a class="collapse-item" href="utilities-border.html">Borders</a> -->
-							<!-- <a class="collapse-item" href="utilities-animation.html">Animations</a> -->
-							<!-- <a class="collapse-item" href="utilities-other.html">Other</a> -->
+							<a class="collapse-item" href="Attendance/getAllAttendace">Riwayat Presensi</a>
 						</div>
 					</div>
 				</li>
@@ -100,6 +102,13 @@
 				<a class="nav-link" href="<?= BASEURL ?>/Account">
 					<i class="fas fa-fw fa-wrench"></i>
 					<span>Ganti Password</span>
+				</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" href="<?= BASEURL ?>/Logout">
+					<i class="fas fa-fw fa-wrench"></i>
+					<span>Logout</span>
 				</a>
 			</li>
 

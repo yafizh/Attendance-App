@@ -1,3 +1,15 @@
+<?php
+
+if (isset($_SESSION['employee_id'])) {
+    if ($_SESSION['login'] == 'admin') {
+        header('location: ' . BASEURL . '/Home');
+        exit;
+    } elseif ($_SESSION['login'] == $_SESSION['employee_unique_number']) {
+        header('location: ' . BASEURL . '/Employee/name/' . $_SESSION['employee_unique_number']);
+        exit;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,15 +85,18 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6 offset-sm-3">
-
                 <h3 class="center">Login</h3>
                 <div class="card-body">
-
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <?php Flasher::flash(); ?>
+                        </div>
+                    </div>
                     <form action="login/login_user" method="post">
 
                         <div class="right-inner-addon input-container form-group">
                             <i class='bx bx-user'></i>
-                            <input type="text" class="cir form-control" placeholder="Username" id="username" name="username" autocomplete="on">
+                            <input type="text" class="cir form-control" placeholder="Username" id="employee_unique_number" name="employee_unique_number" autocomplete="on">
                         </div>
 
                         <div class="input-group input-container mb-3">
@@ -95,9 +110,6 @@
                     </form>
 
                     <hr>
-
-                    <p><a href="register">Register</a></p>
-
                 </div>
             </div>
 
