@@ -71,8 +71,8 @@ if (!isset($_SESSION["login"])) {
 					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<!-- <h6 class="collapse-header">Custom Components:</h6> -->
-							<a class="collapse-item" href="Employee">Tambah Karyawan</a>
-							<a class="collapse-item" href="Employee">Data Karyawan</a>
+							<a class="collapse-item" href="<?= BASEURL ?>/employee/add_employee">Tambah Karyawan</a>
+							<a class="collapse-item" href="<?= BASEURL ?>/employee">Data Karyawan</a>
 						</div>
 					</div>
 				</li>
