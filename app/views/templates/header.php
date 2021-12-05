@@ -3,7 +3,6 @@ if (!isset($_SESSION["login"])) {
 	header('location: ' . BASEURL . '/login');
 	exit;
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +23,10 @@ if (!isset($_SESSION["login"])) {
 
 	<!-- Custom styles for this template-->
 	<link href="<?= BASEURL ?>/css/sb-admin-2.min.css" rel="stylesheet">
+
+	<!-- Bootstrap core JavaScript-->
+	<script src="<?= BASEURL ?>/vendor/jquery/jquery.min.js"></script>
+	<script src="<?= BASEURL ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </head>
 
@@ -83,8 +86,8 @@ if (!isset($_SESSION["login"])) {
 					<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
-							<a class="collapse-item" href="Attendance">Presensi Hari ini</a>
-							<a class="collapse-item" href="Attendance/getAllAttendace">Riwayat Presensi</a>
+							<a class="collapse-item" href="<?= BASEURL ?>/Attendance">Presensi Hari ini</a>
+							<a class="collapse-item" href="<?= BASEURL ?>/Attendance/getAllAttendace">Riwayat Presensi</a>
 						</div>
 					</div>
 				</li>

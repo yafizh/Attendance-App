@@ -9,27 +9,50 @@
     </div>
     <div class="d-flex">
         <form action="" method="POST">
-            <div class="input-group input-container mb-3">
-                <input type="password" id="password" name="password" placeholder="Password Lama" class="cir form-control" placeholder="">
-                <div class="input-group-append">
-                    <button class="cir btn input-group-text" type="button" onclick="myFunction()" id="button-addon2"><i class='bx bx-show-alt bx-flip-horizontal'></i></button>
-                </div>
+
+            <div class="right-inner-addon input-container form-group">
+                <input type="password" class="form-control" id="password_lama" name="password_lama" placeholder="Password Lama">
             </div>
-            <div class="input-group input-container mb-3">
-                <input type="password" id="password" name="password" placeholder="Password Baru" class="cir form-control" placeholder="">
-                <div class="input-group-append">
-                    <button class="cir btn input-group-text" type="button" onclick="myFunction()" id="button-addon2"><i class='bx bx-show-alt bx-flip-horizontal'></i></button>
-                </div>
+
+            <div class="right-inner-addon input-container form-group">
+                <input type="password" id="password_baru" name="password_baru" class="form-control" placeholder="Password Baru" autocomplete="off">
             </div>
-            <div class="input-group input-container mb-3">
-                <input type="password" id="password" name="password" placeholder="Konfirmasi Password Baru" class="cir form-control" placeholder="">
-                <div class="input-group-append">
-                    <button class="cir btn input-group-text" type="button" onclick="myFunction()" id="button-addon2"><i class='bx bx-show-alt bx-flip-horizontal'></i></button>
-                </div>
+
+            <div class="right-inner-addon input-container form-group">
+                <input type="password" id="password_konfirmasi" name="password_konfirmasi" class="form-control " placeholder="Konfirmasi Password Baru" autocomplete="off">
             </div>
-            <button type="submit" class="cir btn btn-primary btn-block">Ganti Password</button>
+            <div class="form-check form-check-inline pl-1">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" onclick="myFunction()">
+                <label style="text-indent: 5px;" class="form-check-label" for="inlineCheckbox1">Show Password</label>
+            </div>
+            <br><br>
+            <button type="submit" class="btn btn-primary btn-block">Ganti Password</button>
         </form>
     </div>
 </div>
 
 <!-- End of Main Content -->
+<script>
+    function myFunction() {
+        var x = document.getElementById("password_lama");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+
+        var x = document.getElementById("password_baru");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+
+        var x = document.getElementById("password_konfirmasi");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>

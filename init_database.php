@@ -31,12 +31,27 @@ $sql = "
         employee_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         employee_name VARCHAR(255) NOT NULL,
         employee_unique_number VARCHAR(255) NOT NULL,
-        employee_password VARCHAR(255),
+        employee_password VARCHAR(255) NOT NULL,
         created_at DATE NOT NULL,
         edited_at DATE NOT NULL
     )";
 
 echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_table created successfully<br>") : ("Error creating table: " . $conn->error);
+while ($conn->next_result()) {;
+}
+
+$sql = "
+    INSERT INTO employee_table (
+        employee_id,
+        employee_name,
+        employee_unique_number,
+        employee_password,
+        created_at,
+        edited_at
+    ) VALUES 
+        (null, 'Nursahid Arya Suyudi', '18636655', 'arya', CURDATE(), CURDATE())";
+
+echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_table inserted successfully<br>") : ("Error creating table: " . $conn->error);
 while ($conn->next_result()) {;
 }
 

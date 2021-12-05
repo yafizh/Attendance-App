@@ -2,67 +2,74 @@
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/id.js"></script>
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Presensi Karyawan</h1>
     </div>
-    <style>
-        .col {
-            margin-bottom: 16px;
-        }
-    </style>
-    <div class="row">
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="<?= BASEURL ?>/img/profile.jpg" class="card-img-top" alt="...">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Nursahid Arya Suyudi</h5>
-                </div>
-                <div class="card-footer d-flex p-0" style="overflow: hidden;">
-                    <div style="flex:1 ;" class="p-2 text-center">Presensi Masuk</div>
-                    <div style="flex:1 ;" class="text-dark p-2 text-center">Presensi Pulang</div>
-                </div>
-                <div class="card-footer d-flex p-0" style="overflow: hidden;">
-                    <div style="flex:1 ;" class="p-2 bg-success text-white text-center">06:30</div>
-                    <div style="flex:1 ;" class="text-dark bg-warning p-2 text-center">16:00</div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="<?= BASEURL ?>/img/profile.jpg" class="card-img-top" alt="...">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Nursahid Arya Suyudi</h5>
-                </div>
-                <div class="card-footer d-flex p-0" style="overflow: hidden;">
-                    <div style="flex:1 ;" class="p-2 text-center">Presensi Masuk</div>
-                    <div style="flex:1 ;" class="text-dark p-2 text-center">Presensi Pulang</div>
-                </div>
-                <div class="card-footer d-flex p-0" style="overflow: hidden;">
-                    <div style="flex:1 ;" class="p-2 bg-success text-white text-center">07.30</div>
-                    <div style="flex:1 ;" class="p-2 bg-success text-white text-center">16.30</div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="<?= BASEURL ?>/img/profile.jpg" class="card-img-top" alt="...">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Nursahid Arya Suyudi</h5>
-                </div>
-                <div class="card-footer d-flex p-0" style="overflow: hidden;">
-                    <div style="flex:1 ;" class="p-2 text-center">Presensi Masuk</div>
-                    <div style="flex:1 ;" class="text-dark p-2 text-center">Presensi Pulang</div>
-                </div>
-                <div class="card-footer d-flex p-0" style="overflow: hidden;">
-                    <div style="flex:1 ;" class="p-2 bg-danger text-white text-center">09.30</div>
-                    <div style="flex:1 ;" class="p-2 bg-warning text-dark text-center">16.30</div>
-                </div>
+    <div class="d-flex flex-wrap">
+        <div class="card mr-3 mb-4" style="width: 18rem;" id="x">
+            <img src="<?= BASEURL ?>/img/profile.jpg" class="card-img-top" alt="...">
+            <div class="card-body text-center">
+                <h5 class="card-title">Nursahid Arya Suyudi</h5>
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nursahid Arya Suyudi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="disini"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('x').addEventListener("click", function() {
+                $('#exampleModal').modal('show');
+            });
+            $('#exampleModal').on('shown.bs.modal', function() {
+                calendar.render();
+            });
+            const calendarEl = document.getElementById('disini');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                fixedWeekCount: false,
+                locale: 'id',
+                initialView: 'dayGridMonth',
+                events: [{
+                        title: 'Presensi Pagi: 07:30',
+                        start: '2021-12-01',
+                        backgroundColor: 'green',
+                    },
+                    {
+                        title: 'Presensi Pulang: 16:30',
+                        start: '2021-12-01',
+                        backgroundColor: 'green',
+                    },
+                    {
+                        title: 'Presensi Pagi: 09:30',
+                        start: '2021-12-02',
+                        backgroundColor: 'red',
+                    },
+                    {
+                        title: 'Presensi Pulang: 16:30',
+                        start: '2021-12-02',
+                        backgroundColor: 'green',
+                    }
 
+                ]
+
+            });
+        });
+    </script>
 </div>
 
 <!-- End of Main Content -->

@@ -1,21 +1,7 @@
 <!-- End of Topbar -->
 
-<?php
-function generateRandomString($length = 10)
-{
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
-}
-?>
-
 <!-- Begin Page Content -->
 <div class="container-fluid h-75">
-
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
@@ -23,6 +9,8 @@ function generateRandomString($length = 10)
     <div class="flex-column d-flex justify-content-center align-items-center h-100">
         <form action="<?= BASEURL ?>/Home/addGenerate" method="POST">
 
+            <h3>Generate Code for Present</h3>
+            <br>
             <div class="input-group input-container mb-3">
                 <input type="text" id="generate_code1" disabled name="generate_code" class="form-control">
                 <input type="text" id="generate_code2" name="generate_code" class="form-control" hidden>
@@ -45,19 +33,19 @@ function generateRandomString($length = 10)
         var length = 10;
         var string = "abcdefghijklmnopqrstuvwxyz"; //to upper 
         var numeric = '0123456789';
-        var punctuation = '!@#$%^&*()_+~`|}{[]\:;?><,./-=';
+        // var punctuation = '!@#$%^&*()_+~`|}{[]\:;?><,./-=';
         var code = "";
         var character = "";
         var crunch = true;
         while (code.length < length) {
             entity1 = Math.ceil(string.length * Math.random() * Math.random());
             entity2 = Math.ceil(numeric.length * Math.random() * Math.random());
-            entity3 = Math.ceil(punctuation.length * Math.random() * Math.random());
+            // entity3 = Math.ceil(punctuation.length * Math.random() * Math.random());
             hold = string.charAt(entity1);
             hold = (code.length % 2 == 0) ? (hold.toUpperCase()) : (hold);
             character += hold;
             character += numeric.charAt(entity2);
-            character += punctuation.charAt(entity3);
+            // character += punctuation.charAt(entity3);
             code = character;
         }
         code = code.split('').sort(function() {
