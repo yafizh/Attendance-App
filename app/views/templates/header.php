@@ -49,7 +49,7 @@ if (!isset($_SESSION["login"])) {
 			<?php if ($_SESSION['login'] == 'admin') : ?>
 				<!-- Nav Item - Dashboard -->
 				<li class="nav-item active">
-					<a class="nav-link" href="Home">
+					<a class="nav-link" href="<?= BASEURL ?>/Home">
 						<i class="fas fa-fw fa-tachometer-alt"></i>
 						<span>Dashboard</span></a>
 				</li>
@@ -87,7 +87,8 @@ if (!isset($_SESSION["login"])) {
 						<div class="bg-white py-2 collapse-inner rounded">
 							<!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
 							<a class="collapse-item" href="<?= BASEURL ?>/Attendance">Presensi Hari ini</a>
-							<a class="collapse-item" href="<?= BASEURL ?>/Attendance/getAllAttendace">Riwayat Presensi</a>
+							<a class="collapse-item" href="<?= BASEURL ?>/Attendance/getAllAttendance">Riwayat Presensi</a>
+							<a class="collapse-item" href="<?= BASEURL ?>/Attendance/getMonthlyAttendance">Presensi Bulanan</a>
 						</div>
 					</div>
 				</li>

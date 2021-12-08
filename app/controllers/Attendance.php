@@ -9,10 +9,17 @@ class Attendance extends Controller
         $this->view('templates/footer');
     }
 
-    public function getAllAttendace()
+    public function getAllAttendance()
     {
         $this->view('templates/header');
         $this->view('attendance/all_employee_attendance');
+        $this->view('templates/footer');
+    }
+
+    public function getMonthlyAttendance()
+    {
+        $this->view('templates/header');
+        $this->view('attendance/monthly_attendance');
         $this->view('templates/footer');
     }
 }
