@@ -83,13 +83,9 @@
 					<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
-							<<<<<<< HEAD <a class="collapse-item" href="<?= BASEURL ?>/Attendance">Presensi Hari ini</a>
-								<a class="collapse-item" href="<?= BASEURL ?>/Attendance/getAllAttendance">Riwayat Presensi</a>
-								<a class="collapse-item" href="<?= BASEURL ?>/Attendance/getMonthlyAttendance">Presensi Bulanan</a>
-								=======
-								<a class="collapse-item" id="attendance" href="<?= BASEURL ?>/Attendance">Presensi Hari ini</a>
-								<a class="collapse-item" id="attendance_getAllAttendance" href="<?= BASEURL ?>/Attendance/getAllAttendace">Riwayat Presensi</a>
-								>>>>>>> 62ffa0cf9789110de3a7cbc4dee1800ceaf768dc
+							<a class="collapse-item" href="<?= BASEURL ?>/Attendance">Presensi Hari ini</a>
+							<a class="collapse-item" href="<?= BASEURL ?>/Attendance/getAllAttendance">Riwayat Presensi</a>
+							<a class="collapse-item" href="<?= BASEURL ?>/Attendance/getMonthlyAttendance">Presensi Bulanan</a>
 						</div>
 					</div>
 				</li>
