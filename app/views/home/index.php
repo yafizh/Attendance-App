@@ -7,22 +7,24 @@
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
     </div>
     <div class="flex-column d-flex justify-content-center align-items-center h-100">
-        <form action="<?= BASEURL ?>/Home/addGenerate" method="POST">
+        <form action="<?= BASEURL ?>/Home/addAttendanceCode" method="POST">
 
             <h3>Generate Code for Present</h3>
             <br>
             <div class="input-group input-container mb-3">
-                <input type="text" id="generate_code1" disabled name="generate_code" class="form-control">
-                <input type="text" id="generate_code2" name="generate_code" class="form-control" hidden>
+                <input type="text" name="code_today" id="generate_code1" value="<?= isset($data[0]) ? $data[0]['attendance_unique_code'] : ''; ?>" readonly class="form-control">
 
-                <div class="input-group-append">
-                    <button class="cir btn input-group-text" onclick="password_generator()" type="button" id="button-addon2">Generate</button>
+                <?php if (!isset($data[0])) : ?>
+                    <div class="input-group-append">
+                        <button class="cir btn input-group-text" onclick="password_generator()" type="button" id="button-addon2">Generate</button>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <?php if (!isset($data[0])) : ?>
+                <div class="flex-column d-flex justify-content-center align-items-center">
+                    <button type="submit" id="btn_generate" class="btn btn-primary mt-3" disabled>Save</button>
                 </div>
-            </div>
-
-            <div class="flex-column d-flex justify-content-center align-items-center">
-                <button class="btn btn-primary mt-3">Save</button>
-            </div>
+            <?php endif; ?>
         </form>
     </div>
 </div>
@@ -53,6 +55,6 @@
         }).join('');
 
         document.getElementById("generate_code1").value = code;
-        document.getElementById("generate_code2").value = code;
+        document.getElementById("btn_generate").removeAttribute("disabled");
     }
 </script>

@@ -36,4 +36,15 @@ class Employee_model
         $this->db->query('SELECT * FROM ' . $this->table);
         return $this->db->resultSet();
     }
+
+    public function getEmployeeAttendanceToday()
+    {
+        $this->db->query("SELECT eeeee.*, 
+        (SELECT TIME(employee_attendance_table.created_at)
+            FROM employee_table LEFT JOIN employee_attendance_table ON employee_table.employee_id=employee_attendance_table.employee_id WHERE employee_attendance_table.attendance_type='PAGI' AND employee_attendance_table.employee_id=eeeee.employee_id) AS PAGI, 
+        (SELECT TIME(employee_attendance_table.created_at)  
+            FROM employee_table LEFT JOIN employee_attendance_table ON employee_table.employee_id=employee_attendance_table.employee_id WHERE employee_attendance_table.attendance_type='SORE' AND employee_attendance_table.employee_id=eeeee.employee_id) AS SORE
+         FROM employee_table AS eeeee LEFT JOIN employee_attendance_table ON eeeee.employee_id=employee_attendance_table.employee_id GROUP BY eeeee.employee_id");
+        return $this->db->resultSet();
+    }
 }
