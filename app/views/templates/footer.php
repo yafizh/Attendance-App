@@ -39,7 +39,31 @@
 </div>
 
 
+<script type="text/javascript">
+    const link = window.location.href;
+    const ex = link.split('/');
 
+    if (ex[5] == 'Attendance') {
+
+        document.getElementById("presensi").className += " active";
+        document.getElementById("dashboard").classList.remove('active');
+        document.getElementById("collapseUtilities").className += " show";
+        document.getElementById("attendance").className += " active";
+
+    } else if (ex[5] == 'Account'){
+
+        document.getElementById("dashboard").classList.remove('active');
+        document.getElementById("account").className += " active";
+
+    } else if (ex[5] == 'Employee'){
+
+        document.getElementById("karyawan").className += " active";
+        document.getElementById("dashboard").classList.remove('active');
+        document.getElementById("collapseTwo").className += " show";
+        document.getElementById("employee").className += " active";
+
+    } 
+</script>
 <!-- Core plugin JavaScript-->
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
