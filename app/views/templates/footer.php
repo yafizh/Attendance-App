@@ -43,7 +43,14 @@
     const link = window.location.href;
     const ex = link.split('/');
 
-    if (ex[5] == 'Attendance') {
+    if(ex[6] == 'getAllAttendace') {
+
+        document.getElementById("presensi").className += " active";
+        document.getElementById("dashboard").classList.remove('active');
+        document.getElementById("collapseUtilities").className += " show";
+        document.getElementById("attendance_getAllAttendance").className += " active";
+
+    }else if (ex[5] == 'Attendance') {
 
         document.getElementById("presensi").className += " active";
         document.getElementById("dashboard").classList.remove('active');
@@ -55,7 +62,14 @@
         document.getElementById("dashboard").classList.remove('active');
         document.getElementById("account").className += " active";
 
-    } else if (ex[5] == 'Employee'){
+    }else if (ex[6] == 'add_employee'){
+
+        document.getElementById("karyawan").className += " active";
+        document.getElementById("dashboard").classList.remove('active');
+        document.getElementById("collapseTwo").className += " show";
+        document.getElementById("add_employee").className += " active";
+
+    }  else if (ex[5] == 'Employee'){
 
         document.getElementById("karyawan").className += " active";
         document.getElementById("dashboard").classList.remove('active');
