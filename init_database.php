@@ -108,6 +108,12 @@ $sql = "
         attendance_type,
         created_at 
     ) VALUES
+        (null, 1, 1, 'PAGI', CONCAT(CURRENT_DATE() - INTERVAL 1 MONTH,' ','07:00:00')),
+        (null, 1, 1, 'SORE', CONCAT(CURRENT_DATE() - INTERVAL 1 MONTH,' ','16:00:00')),
+        (null, 2, 1, 'PAGI', CONCAT(CURRENT_DATE() - INTERVAL 1 MONTH,' ','07:30:00')),
+        (null, 1, 1, 'PAGI', CONCAT(CURRENT_DATE() - INTERVAL 1 DAY,' ','07:00:00')),
+        (null, 1, 1, 'SORE', CONCAT(CURRENT_DATE() - INTERVAL 1 DAY,' ','16:00:00')),
+        (null, 2, 1, 'PAGI', CONCAT(CURRENT_DATE() - INTERVAL 1 DAY,' ','07:30:00')),
         (null, 1, 1, 'PAGI', CONCAT(CURRENT_DATE(),' ','07:00:00')),
         (null, 1, 1, 'SORE', CONCAT(CURRENT_DATE(),' ','16:00:00')),
         (null, 2, 1, 'PAGI', CONCAT(CURRENT_DATE(),' ','07:30:00'))";

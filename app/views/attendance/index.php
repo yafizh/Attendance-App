@@ -12,7 +12,7 @@
             margin-bottom: 16px;
         }
     </style>
-    <?php if (isset($data['attemdamce_code_today'][0])) : ?>
+    <?php if (isset($data['attendance_code_today'][0])) : ?>
         <div class="d-flex flex-wrap">
             <?php foreach ($data['employee_data'] as $employee) : ?>
                 <div class="card mr-3 mb-4" style="width: 18rem;">
