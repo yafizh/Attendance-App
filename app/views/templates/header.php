@@ -1,9 +1,3 @@
-<?php
-if (!isset($_SESSION["login"])) {
-	header('location: ' . BASEURL . '/login');
-	exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,9 +40,12 @@ if (!isset($_SESSION["login"])) {
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 
+
+
+
 			<?php if ($_SESSION['login'] == 'admin') : ?>
 				<!-- Nav Item - Dashboard -->
-				<li class="nav-item active">
+				<li class="nav-item active" id="dashboard">
 					<a class="nav-link" href="<?= BASEURL ?>/Home">
 						<i class="fas fa-fw fa-tachometer-alt"></i>
 						<span>Dashboard</span></a>
@@ -63,22 +60,22 @@ if (!isset($_SESSION["login"])) {
 			</div> -->
 
 				<!-- Nav Item - Pages Collapse Menu -->
-				<li class="nav-item">
+				<li class="nav-item" id="karyawan">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 						<i class="fas fa-fw fa-cog"></i>
 						<span>Karyawan</span>
 					</a>
-					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+					<div id="collapseTwo" id="karyawan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<!-- <h6 class="collapse-header">Custom Components:</h6> -->
-							<a class="collapse-item" href="<?= BASEURL ?>/employee/add_employee">Tambah Karyawan</a>
-							<a class="collapse-item" href="<?= BASEURL ?>/employee">Data Karyawan</a>
+							<a class="collapse-item" id="add_employee" href="<?= BASEURL ?>/Employee/add_employee">Tambah Karyawan</a>
+							<a class="collapse-item" id="employee" href="<?= BASEURL ?>/Employee">Data Karyawan</a>
 						</div>
 					</div>
 				</li>
 
 				<!-- Nav Item - Utilities Collapse Menu -->
-				<li class="nav-item">
+				<li class="nav-item" id="presensi">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
 						<i class="fas fa-fw fa-wrench"></i>
 						<span>Presensi</span>
@@ -86,9 +83,13 @@ if (!isset($_SESSION["login"])) {
 					<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
-							<a class="collapse-item" href="<?= BASEURL ?>/Attendance">Presensi Hari ini</a>
-							<a class="collapse-item" href="<?= BASEURL ?>/Attendance/getAllAttendance">Riwayat Presensi</a>
-							<a class="collapse-item" href="<?= BASEURL ?>/Attendance/getMonthlyAttendance">Presensi Bulanan</a>
+							<<<<<<< HEAD <a class="collapse-item" href="<?= BASEURL ?>/Attendance">Presensi Hari ini</a>
+								<a class="collapse-item" href="<?= BASEURL ?>/Attendance/getAllAttendance">Riwayat Presensi</a>
+								<a class="collapse-item" href="<?= BASEURL ?>/Attendance/getMonthlyAttendance">Presensi Bulanan</a>
+								=======
+								<a class="collapse-item" id="attendance" href="<?= BASEURL ?>/Attendance">Presensi Hari ini</a>
+								<a class="collapse-item" id="attendance_getAllAttendance" href="<?= BASEURL ?>/Attendance/getAllAttendace">Riwayat Presensi</a>
+								>>>>>>> 62ffa0cf9789110de3a7cbc4dee1800ceaf768dc
 						</div>
 					</div>
 				</li>
@@ -96,13 +97,13 @@ if (!isset($_SESSION["login"])) {
 
 			<?php if ($_SESSION['login'] != 'admin') : ?>
 				<li class="nav-item active">
-					<a class="nav-link" href="<?= BASEURL ?>/Employee/name/gonzales">
+					<a class="nav-link" id="employee_with_name"> href="<?= BASEURL ?>/Employee/name/gonzales">
 						<i class="fas fa-fw fa-wrench"></i>
 						<span>Presensi Hari ini</span>
 					</a>
 				</li>
 			<?php endif; ?>
-			<li class="nav-item">
+			<li class="nav-item" id="account">
 				<a class="nav-link" href="<?= BASEURL ?>/Account">
 					<i class="fas fa-fw fa-wrench"></i>
 					<span>Ganti Password</span>
