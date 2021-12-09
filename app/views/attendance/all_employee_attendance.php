@@ -48,10 +48,19 @@
                     console.log(msg);
                     let x = [];
                     $.each(msg, function(index, value) {
+
+                        let sp = value['PAGI'].split(':');
+                        let spl = sp[0] + sp[1] + sp[2];
+                        let a = '';
+                        if (73100 <= 73000) {
+                            a = 'green';
+                        } else {
+                            a = 'red';
+                        }
                         x.push({
                             title: 'Presensi Pagi: ' + value['PAGI'],
                             start: value['DATE(a.created_at)'],
-                            // backgroundColor: 'green',
+                            backgroundColor: a,
                         });
                         x.push({
                             title: 'Presensi Pulang: ' + value['SORE'],

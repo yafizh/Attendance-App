@@ -1,6 +1,6 @@
 <?php
 
-define("BASEURL", "http://localhost/attendance-app/public");
+define("BASEURL", "http://localhost:8080/Attendance-App/public");
 
 //DB
 define('DB_HOST', 'localhost');
