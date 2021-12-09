@@ -12,6 +12,7 @@ class AttendanceModel
 
     public function getAttendance($employee_id)
     {
+        date_default_timezone_set("Asia/Kuala_Lumpur");
         $month_now = date("m");
         $year_now = date("Y");
 

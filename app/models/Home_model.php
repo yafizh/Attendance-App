@@ -7,6 +7,7 @@ class Home_model
 
     public function __construct()
     {
+        date_default_timezone_set("Asia/Kuala_Lumpur");
         $this->db = new Database;
     }
 
@@ -33,6 +34,7 @@ class Home_model
     public function getAttendanceCodeToday()
     {
         $today = Date('Y-m-d');
+
         $this->db->query("SELECT * FROM " . $this->table . " WHERE created_at='$today'");
         return $this->db->resultSet();
     }
