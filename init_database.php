@@ -89,7 +89,7 @@ $sql = "
         employee_id INT UNSIGNED NOT NULL,
         attendance_id INT UNSIGNED NOT NULL,
         attendance_type ENUM('PAGI','SORE') NOT NULL,
-        created_at DATETIME NOT NULL,
+        created_at DATETIME NULL,
         PRIMARY KEY (employee_attendance_id),
         FOREIGN KEY (employee_id) REFERENCES employee_table (employee_id),
         FOREIGN KEY (attendance_id) REFERENCES attendance_table (attendance_id)
