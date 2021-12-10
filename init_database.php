@@ -50,7 +50,11 @@ $sql = "
         edited_at
     ) VALUES 
         (null, 'Nursahid Arya Suyudi', '18636655', 'arya', CURDATE(), CURDATE()),
-        (null, 'Rania Nor Aida', '18635544', 'Rania', CURDATE(), CURDATE())";
+        (null, 'Nurcholis', '18636666', 'cholis', CURDATE(), CURDATE()),
+        (null, 'Diki Suti Praserta', '18636677', 'diki', CURDATE(), CURDATE()),
+        (null, 'Ibrahim', '18636688', 'ibrahim', CURDATE(), CURDATE()),
+        (null, 'Udin', '18636699', 'udin', CURDATE(), CURDATE()),
+        (null, 'Rania Nor Aida', '18635510', 'Rania', CURDATE(), CURDATE())";
 
 echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_table inserted successfully<br>") : ("Error creating table: " . $conn->error);
 while ($conn->next_result()) {;
@@ -76,7 +80,7 @@ $sql = "
         created_at,
         edited_at
     ) VALUES 
-        (null, '18636655', CURDATE(), CURDATE())";
+        (null, 'KLMNAS', CURDATE(), CURDATE())";
 
 echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_table inserted successfully<br>") : ("Error creating table: " . $conn->error);
 while ($conn->next_result()) {;
@@ -111,12 +115,17 @@ $sql = "
         (null, 1, 1, 'PAGI', CONCAT(CURRENT_DATE() - INTERVAL 1 MONTH,' ','07:00:00')),
         (null, 1, 1, 'SORE', CONCAT(CURRENT_DATE() - INTERVAL 1 MONTH,' ','16:00:00')),
         (null, 2, 1, 'PAGI', CONCAT(CURRENT_DATE() - INTERVAL 1 MONTH,' ','07:30:00')),
-        (null, 1, 1, 'PAGI', CONCAT(CURRENT_DATE() - INTERVAL 1 DAY,' ','07:00:00')),
+        (null, 2, 1, 'SORE', CONCAT(CURRENT_DATE() - INTERVAL 1 MONTH,' ','16:30:00')),
+        (null, 1, 1, 'PAGI', CONCAT(CURRENT_DATE() - INTERVAL 1 DAY,' ','08:00:00')),
         (null, 1, 1, 'SORE', CONCAT(CURRENT_DATE() - INTERVAL 1 DAY,' ','16:00:00')),
         (null, 2, 1, 'PAGI', CONCAT(CURRENT_DATE() - INTERVAL 1 DAY,' ','07:30:00')),
+        (null, 2, 1, 'SORE', CONCAT(CURRENT_DATE() - INTERVAL 1 DAY,' ','00:00:00')),
+        (null, 3, 1, 'PAGI', CONCAT(CURRENT_DATE() - INTERVAL 1 DAY,' ','00:00:00')),
+        (null, 3, 1, 'SORE', CONCAT(CURRENT_DATE() - INTERVAL 1 DAY,' ','00:00:00')),
         (null, 1, 1, 'PAGI', CONCAT(CURRENT_DATE(),' ','07:00:00')),
         (null, 1, 1, 'SORE', CONCAT(CURRENT_DATE(),' ','16:00:00')),
-        (null, 2, 1, 'PAGI', CONCAT(CURRENT_DATE(),' ','07:30:00'))";
+        (null, 2, 1, 'PAGI', CONCAT(CURRENT_DATE(),' ','07:30:00')),
+        (null, 2, 1, 'SORE', CONCAT(CURRENT_DATE(),' ','16:30:00'))";
 
 echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_attendance_table inserted successfully<br>") : ("Error creating table: " . $conn->error);
 while ($conn->next_result()) {;

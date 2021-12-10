@@ -25,80 +25,73 @@
                     } else {
                         data[value["DATE(a.created_at)"]] = {
                             "orang": [value],
-                            "telat": 0
+                            "telat": 0,
+                            "tepat": 0,
+                            "null": 0
                         };
                     }
                 });
                 $.each(data, function(index, value) {
                     $.each(value["orang"], function(index2, value2) {
-                        if (parseInt((value2.PAGI.split(':')[0]).toString() + (value2.PAGI.split(':')[1]).toString() + (value2.PAGI.split(':')[2]).toString()) > 73000) {
-                            data[index]["telat"]++;
+                        if (value2.PAGI == null) {
+                            data[index]["null"]++;
                         } else {
-                            console.log(parseInt((value2.PAGI.split(':')[0]).toString() + (value2.PAGI.split(':')[1]).toString() + (value2.PAGI.split(':')[2]).toString()))
+                            if (parseInt((value2.PAGI.split(':')[0]).toString() + (value2.PAGI.split(':')[1]).toString() + (value2.PAGI.split(':')[2]).toString()) == 0) {
+                                data[index]["null"]++;
+                            } else if (parseInt((value2.PAGI.split(':')[0]).toString() + (value2.PAGI.split(':')[1]).toString() + (value2.PAGI.split(':')[2]).toString()) > 73000) {
+                                data[index]["telat"]++;
+                            } else {
+                                data[index]["tepat"]++;
+                            }
                         }
+
                     });
                 });
                 console.log(data);
+                let x = [];
+                $.each(data, function(index, value) {
+                    x.push({
+                        title: `Mengisi Presensi ${parseInt(value.tepat)} Orang`,
+                        start: index,
+                        backgroundColor: 'green'
+                    });
+                    x.push({
+                        title: `Terlambat ${parseInt(value.telat)} Orang`,
+                        start: index,
+                        backgroundColor: 'red'
+                    });
+                    x.push({
+                        title: `Tidak mengisi presensi ${parseInt(value.null)} Orang`,
+                        start: index,
+                        backgroundColor: 'gray'
+                    });
+                    x.push({
+                        title: `Total Karyawan ${parseInt(value.telat)+parseInt(value.tepat)+parseInt(value.null)} Orang`,
+                        start: index,
+                        backgroundColor: '#4e73df'
+                    });
+                });
+
+                const calendarEl = document.getElementById('disini');
+                const calendar = new FullCalendar.Calendar(calendarEl, {
+                    fixedWeekCount: false,
+                    locale: 'id',
+                    initialView: 'dayGridMonth',
+                    eventClick: function(info) {
+                        // alert('Event: ' + info.event.title);
+                        // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+                        // alert('View: ' + info.view.type);
+                        console.log(info)
+                    },
+                    contentHeight: 700,
+                    events: x
+
+                });
+
+                calendar.render();
             });
         document.addEventListener('DOMContentLoaded', function() {
-            const calendarEl = document.getElementById('disini');
-            const calendar = new FullCalendar.Calendar(calendarEl, {
-                fixedWeekCount: false,
-                locale: 'id',
-                initialView: 'dayGridMonth',
-                eventClick: function(info) {
-                    // alert('Event: ' + info.event.title);
-                    // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-                    // alert('View: ' + info.view.type);
-                    console.log(info)
-                },
-                contentHeight: 700,
-                events: [{
-                        title: 'Mengisi Presensi 25 Orang',
-                        start: '2021-12-01',
-                        backgroundColor: 'green'
-                    },
-                    {
-                        title: 'Terlambat 5 Orang',
-                        start: '2021-12-01',
-                        backgroundColor: 'red',
-                    },
-                    {
-                        title: 'Tidak Mengisi Presensi: 2 Orang',
-                        start: '2021-12-01',
-                        backgroundColor: 'gray',
-                    },
-                    {
-                        title: 'Total Karyawan 32 Orang',
-                        start: '2021-12-01',
-                        backgroundColor: '#4e73df',
-                    },
-                    {
-                        title: 'Mengisi Presensi 25 Orang',
-                        start: '2021-12-07',
-                        backgroundColor: 'green'
-                    },
-                    {
-                        title: 'Terlambat 5 Orang',
-                        start: '2021-12-07',
-                        backgroundColor: 'red',
-                    },
-                    {
-                        title: 'Tidak Mengisi Presensi: 2 Orang',
-                        start: '2021-12-07',
-                        backgroundColor: 'gray',
-                    },
-                    {
-                        title: 'Total Karyawan 32 Orang',
-                        start: '2021-12-07',
-                        backgroundColor: '#4e73df',
-                    }
 
-                ]
-
-            });
-
-            calendar.render();
         });
     </script>
 </div>
