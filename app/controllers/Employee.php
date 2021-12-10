@@ -28,11 +28,42 @@ class Employee extends Controller
     {
         if ($this->model('Employee_model')->add_employee($_POST) > 0) {
             Flasher::setFlash('berhasil', 'ditambahkan', 'success');
-            header('location: ' . BASEURL . '/employee/add_employee');
+            header('location: ' . BASEURL . '/Employee');
             exit;
         } else {
             Flasher::setFlash('gagal', 'ditambahkan', 'danger');
-            header('location: ' . BASEURL . '/employee/add_employee');
+            header('location: ' . BASEURL . '/Employee');
+            exit;
+        }
+    }
+
+    public function getEmployee()
+    {
+        echo json_encode($this->model('Employee_model')->getSingle($_POST['id']));
+    }
+
+    public function update()
+    {
+        if ($this->model('Employee_model')->update_employee($_POST) > 0) {
+            Flasher::setFlash('berhasil', 'diubah', 'success');
+            header('location: ' . BASEURL . '/Employee');
+            exit;
+        } else {
+            Flasher::setFlash('gagal', 'diubah', 'danger');
+            header('location: ' . BASEURL . '/Employee');
+            exit;
+        }
+    }
+
+    public function delete($id)
+    {
+        if ($this->model('Employee_model')->delete_employee($id) > 0) {
+            Flasher::setFlash('berhasil', 'dihapus', 'success');
+            header('location: ' . BASEURL . '/Employee');
+            exit;
+        } else {
+            Flasher::setFlash('gagal', 'dihapus', 'danger');
+            header('location: ' . BASEURL . '/Employee');
             exit;
         }
     }

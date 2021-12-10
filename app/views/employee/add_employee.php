@@ -6,11 +6,6 @@
                 <h1 class="h3 mb-0 text-gray-800">Tambah Karyawan</h1>
             </div>
             <br>
-            <div class="row">
-                <div class="col-lg-12">
-                    <?php Flasher::flash(); ?>
-                </div>
-            </div>
             <div class="row" style="margin-left:7px">
                 <?php Flasher::flash(); ?>
             </div>
@@ -28,7 +23,8 @@
                     <div class="input-group-append">
                         <button class="btn input-group-text" type="button" onclick="myFunction()" id="button-addon2"><i class="fas fa-eye"></i></button>
                     </div>
-                </div> <br>
+                </div>
+                <br>
 
                 <button class="btn btn-primary" type="submit" style="float:right">Simpan</button>
 

@@ -86,6 +86,7 @@
     }
 </script>
 <!-- Core plugin JavaScript-->
+<script src="js/script.js"></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
