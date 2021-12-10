@@ -81,12 +81,24 @@ class Employee_model
     {
         date_default_timezone_set("Asia/Kuala_Lumpur");
         $date_today = Date("Y-m-d");
-        $this->db->query("SELECT b.employee_name, b.employee_unique_number, 
-        (SELECT TIME(employee_attendance_table.created_at)
-            FROM employee_attendance_table INNER JOIN employee_table ON employee_table.employee_id=employee_attendance_table.employee_id WHERE employee_attendance_table.attendance_type='PAGI' AND employee_attendance_table.employee_id=a.employee_id AND DATE(employee_attendance_table.created_at)=DATE(b.created_at)) AS PAGI, 
-        (SELECT TIME(employee_attendance_table.created_at)  
-            FROM employee_attendance_table INNER JOIN employee_table ON employee_table.employee_id=employee_attendance_table.employee_id WHERE employee_attendance_table.attendance_type='SORE' AND employee_attendance_table.employee_id=a.employee_id AND DATE(employee_attendance_table.created_at)=DATE(b.created_at)) AS SORE
-    FROM employee_attendance_table AS a INNER JOIN employee_table AS b ON a.employee_id=b.employee_id WHERE (DATE(a.created_at) = '$date_today') GROUP BY b.employee_id");
-        return $this->db->resultSet();
+        $this->db->query("SELECT * FROM employee_table");
+        $employees = $this->db->resultSet();
+        foreach ($employees as $index => $value) {
+            $this->db->query("SELECT attendance_type, TIME(created_at) AS attendance_time FROM employee_attendance_table WHERE employee_id=" . $value['employee_id'] . " AND DATE(created_at)='" . $date_today . "'");
+            $result = $this->db->resultSet();
+            if (empty($result)) {
+                $employees[$index]['PAGI'] = null;
+                $employees[$index]['SORE'] = null;
+            } else {
+                if (count($result) == 2) {
+                    $employees[$index][$result[0]['attendance_type']] = $result[0]['attendance_time'];
+                    $employees[$index][$result[1]['attendance_type']] = $result[1]['attendance_time'];
+                } else {
+                    $employees[$index][$result[0]['attendance_type']] = $result[0]['attendance_time'];
+                    $employees[$index]["SORE"] = null;
+                }
+            }
+        }
+        return $employees;
     }
 }

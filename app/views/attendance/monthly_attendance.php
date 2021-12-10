@@ -1,5 +1,9 @@
 <!-- End of Topbar -->
+<?php
+var_dump($data);
+die;
 
+?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
@@ -7,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/id.js"></script>
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Presensi Karyawan</h1>
+        <h1 class="h3 mb-0 text-gray-800">Presensi Bulanan</h1>
     </div>
     <div id="disini"></div>
     <script>

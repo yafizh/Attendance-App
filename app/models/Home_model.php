@@ -23,12 +23,10 @@ class Home_model
         $this->db->bind('attendance_unique_code', $code_today);
         $this->db->bind('created_at', $created_at);
         $this->db->bind('edited_at', $created_at);
+        $this->db->execute();
 
-        if ($this->db->execute()) {
-            header('location: ' . BASEURL . '/home');
-        }
-
-        return $this->db->rowCount();
+        $this->db->query("SELECT LAST_INSERT_ID()");
+        return $this->db->resultSet()[0];
     }
 
     public function getAttendanceCodeToday()
