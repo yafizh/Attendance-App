@@ -21,13 +21,18 @@ class Attendance extends Controller
 
     public function getMonthlyAttendance()
     {
+        $this->view('templates/header');
+        $this->view('attendance/monthly_attendance');
+        $this->view('templates/footer');
+    }
+
+    public function getMonthlyAttendanceData()
+    {
         date_default_timezone_set("Asia/Kuala_Lumpur");
         $month_now = date("m");
         $year_now = date("Y");
         $data = $this->model('AttendanceModel')->getMonthlyAttendance($month_now, $year_now);
-        $this->view('templates/header');
-        $this->view('attendance/monthly_attendance', $data);
-        $this->view('templates/footer');
+        echo json_encode($data);
     }
 
     public function detail($employee_id)
