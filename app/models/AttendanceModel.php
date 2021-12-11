@@ -12,8 +12,18 @@ class AttendanceModel
 
     public function initAttendanceToday($employee_id, $attendance_id, $attendance_type)
     {
-        $query = "INSERT INTO employee_attendance_table (employee_id, attendance_id, attendance_type) 
-                VALUES (:employee_id, :attendance_id, :attendance_type)";
+        $query = "
+                    INSERT INTO "
+            . $this->table . " (
+                            employee_id, 
+                            attendance_id, 
+                            attendance_type
+                        ) 
+                    VALUES (
+                            :employee_id, 
+                            :attendance_id, 
+                            :attendance_type
+                        )";
         $this->db->query($query);
         $this->db->bind('employee_id', $employee_id);
         $this->db->bind('attendance_id', $attendance_id);

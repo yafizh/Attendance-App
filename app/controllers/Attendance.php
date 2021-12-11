@@ -4,7 +4,7 @@ class Attendance extends Controller
 {
     public function index()
     {
-        $data['attendance_code_today'] = $this->model('Home_model')->getAttendanceCodeToday();
+        $data['attendance_code'] = $this->model('HomeModel')->getAttendanceCodeToday();
         $data["employee_data"] = $this->model('Employee_model')->getEmployeeAttendanceToday();
         $this->view('templates/header');
         $this->view('attendance/index', $data);
