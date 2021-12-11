@@ -34,6 +34,6 @@ class Home_model
         $today = Date('Y-m-d');
 
         $this->db->query("SELECT * FROM " . $this->table . " WHERE created_at='$today'");
-        return $this->db->resultSet();
+        return $this->db->single();
     }
 }

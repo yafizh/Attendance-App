@@ -1,5 +1,5 @@
 <!-- End of Topbar -->
-?>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">

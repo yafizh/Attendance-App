@@ -12,15 +12,15 @@
             <h3>Generate Code for Present</h3>
             <br>
             <div class="input-group input-container mb-3">
-                <input type="text" name="code_today" id="generate_code1" value="<?= isset($data[0]) ? $data[0]['attendance_unique_code'] : ''; ?>" readonly class="form-control">
+                <input type="text" name="code_today" id="generate_code1" value="<?= isset($data) ? $data['attendance_unique_code'] : ''; ?>" readonly class="form-control">
 
-                <?php if (!isset($data[0])) : ?>
+                <?php if (!isset($data)) : ?>
                     <div class="input-group-append">
                         <button class="cir btn input-group-text" onclick="password_generator()" type="button" id="button-addon2">Generate</button>
                     </div>
                 <?php endif; ?>
             </div>
-            <?php if (!isset($data[0])) : ?>
+            <?php if (!isset($data)) : ?>
                 <div class="flex-column d-flex justify-content-center align-items-center">
                     <button type="submit" id="btn_generate" class="btn btn-primary mt-3" disabled>Save</button>
                 </div>

@@ -20,7 +20,7 @@ class Login extends Controller
         } else {
             if ($this->model('login_model')->login($_POST) > 0) {
                 $_SESSION['login'] = $_POST['employee_unique_number'];
-                header('location: ' . BASEURL . '/Employee/name/' . $_POST['employee_unique_number']);
+                header('location: ' . BASEURL . '/Employee/nip/' . $_POST['employee_unique_number']);
                 exit;
             } else {
                 Flasher::setFlash('employee_unique_number atau password', 'invalid', 'danger');

@@ -36,6 +36,7 @@ class Login_model
             if ($password == $user["employee_password"]) {
                 $_SESSION['employee_id'] = $user['employee_id'];
                 $_SESSION['employee_unique_number'] = $user['employee_unique_number'];
+                $_SESSION['employee_name'] = $user['employee_name'];
                 return true;
             } else {
                 return false;

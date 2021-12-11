@@ -10,11 +10,29 @@ class Employee extends Controller
         $this->view('templates/footer');
     }
 
-    public function name($name)
+    public function nip($nip)
     {
+        $data = $this->model('Home_model')->getAttendanceCodeToday();
         $this->view('templates/header');
-        $this->view('employee/attendance_form');
+        $this->view('employee/attendance_form', $data);
         $this->view('templates/footer');
+    }
+
+    public function presensi($nip)
+    {
+        if ($this->model('Home_model')->getAttendanceCodeToday()["attendance_unique_code"] == strtoupper($_POST['absen_code'])) {
+            $type = '';
+
+            $data = $this->model('AttendanceModel')->getAttendanceToday($_SESSION['employee_id']);
+            if ($data["PAGI"] == "00:00:00") {
+                $type = "PAGI";
+            } else {
+                $type = "SORE";
+            }
+            $this->model('AttendanceModel')->putEmployeeAttendance($_SESSION['employee_id'], $type);
+        } else {
+            echo "kode salah";
+        }
     }
 
     public function add_employee()

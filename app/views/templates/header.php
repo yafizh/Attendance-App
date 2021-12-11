@@ -93,7 +93,7 @@
 
 			<?php if ($_SESSION['login'] != 'admin') : ?>
 				<li class="nav-item active">
-					<a class="nav-link" id="employee_with_name"> href="<?= BASEURL ?>/Employee/name/gonzales">
+					<a class="nav-link" id="employee_with_name" href="<?= BASEURL ?>/Employee/name/<?= $_SESSION['employee_name']; ?>">
 						<i class="fas fa-fw fa-wrench"></i>
 						<span>Presensi Hari ini</span>
 					</a>
