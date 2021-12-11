@@ -51,6 +51,8 @@ class LoginModel
             $this->db->bind('employee_password', $password);
             $this->db->execute();
 
+            $_SESSION['employee_unique_number'] = $username;
+
             return $this->db->single();
         }
     }

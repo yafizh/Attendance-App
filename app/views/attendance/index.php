@@ -16,8 +16,46 @@
                         <h5 class="card-title"><?= $employee['employee_name']; ?></h5>
                     </div>
                     <div class="card-footer d-flex p-0" style="overflow: hidden;">
-                        <div style="flex:1 ;" class="p-2 text-center"><?= ($employee['PAGI'] == null) ? "Presensi Pagi" : $employee['PAGI']; ?></div>
-                        <div style="flex:1 ;" class="p-2 text-center"><?= ($employee['SORE'] == null) ? "Presensi Sore" : $employee['SORE']; ?></div>
+
+                    <?php 
+                        $morning = $employee['PAGI'];
+                        $evening = $employee['SORE'];
+                        $ex = explode(':', $morning);
+                        $one = $ex[0] . $ex[1] . $ex[2];
+                        $int = (int)$one;
+
+                        $ex1 = explode(':', $evening);
+                        $one1 = $ex1[0] . $ex1[1] . $ex1[2];
+                        $int1 = (int)$one1;
+                        if ($int <= 73000) { ?>
+                           
+                        <div style="flex:1 ; background: green;" class="p-2 text-center"><?= ($employee['PAGI'] == null) ? "Presensi Pagi" : $employee['PAGI']; ?></div>
+
+                            <?php if ($int1 <= 160000) { ?>
+
+                                <div style="flex:1 ; background: green;" class="p-2 text-center"><?= ($employee['SORE'] == null) ? "Presensi Sore" : $employee['SORE']; ?></div>
+
+                            <?php } else { ?>
+
+                                <div style="flex:1 ; background: red;" class="p-2 text-center"><?= ($employee['SORE'] == null) ? "Presensi Sore" : $employee['SORE']; ?></div>
+
+                            <?php } ?>
+
+                        <?php } else { ?>
+                           
+                        <div style="flex:1 ; background: red;" class="p-2 text-center"><?= ($employee['PAGI'] == null) ? "Presensi Pagi" : $employee['PAGI']; ?></div>
+                        
+                            <?php if ($int1 <= 160000) { ?>
+
+                                <div style="flex:1 ; background: green;" class="p-2 text-center"><?= ($employee['SORE'] == null) ? "Presensi Sore" : $employee['SORE']; ?></div>
+
+                            <?php } else { ?>
+
+                                <div style="flex:1 ; background: red;" class="p-2 text-center"><?= ($employee['SORE'] == null) ? "Presensi Sore" : $employee['SORE']; ?></div>
+
+                            <?php } ?>
+
+                        <?php } ?>
                     </div>
                 </div>
             <?php endforeach; ?>

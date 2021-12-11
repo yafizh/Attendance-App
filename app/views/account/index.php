@@ -1,4 +1,3 @@
-<!-- End of Topbar -->
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -7,8 +6,11 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Ganti Password</h1>
     </div>
+    <div class="row" style="margin-left:7px">
+        <?php Flasher::flash(); ?>
+    </div>
     <div class="d-flex">
-        <form action="" method="POST" class="w-25">
+        <form action="<?= BASEURL; ?>/Account/postChangePassword" method="POST" class="w-25">
             <div class="right-inner-addon input-container form-group">
                 <input type="password" class="form-control" id="old-password" name="old-password" placeholder="Password Lama">
             </div>

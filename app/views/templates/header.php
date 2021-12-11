@@ -59,7 +59,7 @@
 				<!-- Nav Item - Pages Collapse Menu -->
 				<li class="nav-item" id="karyawan">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-						<i class="fas fa-fw fa-cog"></i>
+						<i class="fas fa-users"></i>
 						<span>Karyawan</span>
 					</a>
 					<div id="collapseTwo" id="karyawan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -74,7 +74,7 @@
 				<!-- Nav Item - Utilities Collapse Menu -->
 				<li class="nav-item" id="presensi">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-						<i class="fas fa-paperclip"></i>
+						<i class="fas fa-fingerprint"></i>
 						<span>Presensi</span>
 					</a>
 					<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -90,7 +90,7 @@
 
 			<?php if ($_SESSION['login'] != 'admin') : ?>
 				<li class="nav-item active">
-					<a class="nav-link" id="employee_with_name" href="<?= BASEURL ?>/Employee/name/<?= $_SESSION['employee_name']; ?>">
+					<a class="nav-link" id="employee_with_name" href="<?= BASEURL ?>/Employee/name/<?php echo $_SESSION['employee_unique_number'];?>">
 						<i class="fas fa-fw fa-wrench"></i>
 						<span>Presensi Hari ini</span>
 					</a>
@@ -98,7 +98,7 @@
 			<?php endif; ?>
 			<li class="nav-item" id="account">
 				<a class="nav-link" href="<?= BASEURL ?>/Account">
-					<i class="fas fa-fw fa-wrench"></i>
+					<i class="fas fa-lock"></i>
 					<span>Ganti Password</span>
 				</a>
 			</li>
