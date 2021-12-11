@@ -9,7 +9,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>PRESENSI</title>
+	<title>Presensi</title>
 
 	<!-- Custom fonts for this template-->
 	<link href="<?= BASEURL ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -39,9 +39,6 @@
 
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
-
-
-
 
 			<?php if ($_SESSION['login'] == 'admin') : ?>
 				<!-- Nav Item - Dashboard -->
