@@ -7,26 +7,24 @@ class Login extends Controller
         $this->view('login/index');
     }
 
-    public function login_user()
+    public function postLogin()
     {
-        if ($_POST['employee_unique_number'] == 'admin') {
-            $d = $this->model('Login_model')->loginAdmin();
-
-            if ($d == 'login') {
+        if ($_POST['username'] == 'admin') {
+            if (!empty($this->model('LoginModel')->auth(true, $_POST))) {
                 $_SESSION['login'] = 'admin';
-                $_SESSION['employee_id'] = 'admin';
                 header('location: ' . BASEURL . '/Home');
+                exit;
             }
         } else {
-            if ($this->model('login_model')->login($_POST) > 0) {
+            $employee = $this->model('LoginModel')->auth(false, $_POST);
+            if (!empty($employee)) {
                 $_SESSION['login'] = $_POST['employee_unique_number'];
-                header('location: ' . BASEURL . '/Employee/nip/' . $_POST['employee_unique_number']);
-                exit;
-            } else {
-                Flasher::setFlash('employee_unique_number atau password', 'invalid', 'danger');
-                header('location: ' . BASEURL . '/login');
+                header('location: ' . BASEURL . '/Employee/nip/' . $employee['employee_unique_number']);
                 exit;
             }
         }
+
+        Flasher::setFlash('Username atau Password Salah', '', 'danger');
+        header('location: ' . BASEURL . '/Login');
     }
 }

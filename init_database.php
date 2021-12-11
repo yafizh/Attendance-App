@@ -26,6 +26,30 @@ if ($conn->connect_error) {
 }
 
 $sql = "
+    DROP TABLE IF EXISTS admin_table; 
+    CREATE TABLE admin_table (
+        admin_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        admin_username VARCHAR(255) NOT NULL,
+        admin_password VARCHAR(255) NOT NULL
+    )";
+
+echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_table created successfully<br>") : ("Error creating table: " . $conn->error);
+while ($conn->next_result()) {;
+}
+
+$sql = "
+    INSERT INTO admin_table (
+        admin_id,
+        admin_username,
+        admin_password
+    ) VALUES 
+        (null, 'admin', 'admin')";
+
+echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_table inserted successfully<br>") : ("Error creating table: " . $conn->error);
+while ($conn->next_result()) {;
+}
+
+$sql = "
     DROP TABLE IF EXISTS employee_table; 
     CREATE TABLE employee_table (
         employee_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
