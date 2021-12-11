@@ -52,7 +52,7 @@
                         let sp = value['PAGI'].split(':');
                         let spl = sp[0] + sp[1] + sp[2];
                         let a = '';
-                        if (70000 <= 73000) {
+                        if (spl <= 73000) {
                             a = 'green';
                         } else {
                             a = 'red';
