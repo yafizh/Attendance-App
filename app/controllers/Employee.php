@@ -12,7 +12,7 @@ class Employee extends Controller
 
     public function nip($nip)
     {
-        $data = $this->model('Home_model')->getAttendanceCodeToday();
+        $data = $this->model('HomeModel')->getAttendanceCodeToday();
         $this->view('templates/header');
         $this->view('employee/attendance_form', $data);
         $this->view('templates/footer');
@@ -20,7 +20,7 @@ class Employee extends Controller
 
     public function presensi($nip)
     {
-        if ($this->model('Home_model')->getAttendanceCodeToday()["attendance_unique_code"] == strtoupper($_POST['absen_code'])) {
+        if ($this->model('HomeModel')->getAttendanceCodeToday()["attendance_unique_code"] == strtoupper($_POST['absen_code'])) {
             $type = '';
 
             $data = $this->model('AttendanceModel')->getAttendanceToday($_SESSION['employee_id']);
