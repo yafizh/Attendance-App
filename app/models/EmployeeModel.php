@@ -12,17 +12,70 @@ class EmployeeModel
 
     public function add_employee($data)
     {
+
+        function uploadImg()
+        {
+            $namaFile = $_FILES['image']['name'];
+            $ukuranFile = $_FILES['image']['size'];
+            $error = $_FILES['image']['error'];
+            $tmpName = $_FILES['image']['tmp_name'];
+
+            // cek apakah tidak ada gambar yang diupload
+            if ($error === 4) {
+                echo "<script>
+                        alert('pilih gambar terlebih dahulu!');
+                    </script>";
+                return false;
+            }
+
+            // cek apakah yang diupload adalah gambar
+            $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+            $ekstensiGambar = explode('.', $namaFile);   // explode = memecah string menggunakan delimiter
+            $ekstensiGambar = strtolower(end($ekstensiGambar));
+            if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+                echo "<script>
+                        alert('yang anda upload bukan gambar!');
+                    </script>";
+                return false;
+            }
+
+
+            // cek jika ukurannya terlalu besar
+            if ($ukuranFile > 1000000) {
+                echo "<script>
+                        alert('ukuran gambar terlalu besar');
+                    </script>";
+                return false;
+            }
+
+            // lulus pengecekan, gambar sia diupload
+            // generate nama gambar baru
+            $namaFileBaru = uniqid();
+            $namaFileBaru .= '.';
+            $namaFileBaru .= $ekstensiGambar;
+
+            move_uploaded_file($tmpName, 'img/profile_employee/' . $namaFileBaru);
+
+            return $namaFileBaru;
+        }
+
+        $gambar = uploadImg();
+        if (!$gambar) {
+            return false;
+        }
+
         $employee_name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
         $unique_number = filter_input(INPUT_POST, 'unique', FILTER_SANITIZE_STRING);
         $employee_password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
         $created_at = date("Y-m-d");
 
-        $query = "INSERT INTO employee_table (employee_name, employee_unique_number, employee_password, created_at, edited_at) 
-                VALUES (:employee_name, :unique_number, :employee_password,  :created_at, :edited_at)";
+        $query = "INSERT INTO employee_table (employee_name, employee_unique_number, employee_password, employee_image, created_at, edited_at) 
+                VALUES (:employee_name, :unique_number, :employee_password, :employee_image, :created_at, :edited_at)";
         $this->db->query($query);
         $this->db->bind('employee_name', $employee_name);
         $this->db->bind('unique_number', $unique_number);
         $this->db->bind('employee_password', $employee_password);
+        $this->db->bind('employee_image', $gambar);
         $this->db->bind('created_at', $created_at);
         $this->db->bind('edited_at', $created_at);
 
@@ -35,17 +88,72 @@ class EmployeeModel
 
     public function update_employee($data)
     {
+        function uploadImg()
+        {
+            $namaFile = $_FILES['image']['name'];
+            $ukuranFile = $_FILES['image']['size'];
+            $error = $_FILES['image']['error'];
+            $tmpName = $_FILES['image']['tmp_name'];
+
+            // cek apakah tidak ada gambar yang diupload
+            if ($error === 4) {
+                echo "<script>
+                        alert('pilih gambar terlebih dahulu!');
+                    </script>";
+                return false;
+            }
+
+            // cek apakah yang diupload adalah gambar
+            $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+            $ekstensiGambar = explode('.', $namaFile);   // explode = memecah string menggunakan delimiter
+            $ekstensiGambar = strtolower(end($ekstensiGambar));
+            if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+                echo "<script>
+                        alert('yang anda upload bukan gambar!');
+                    </script>";
+                return false;
+            }
+
+
+            // cek jika ukurannya terlalu besar
+            if ($ukuranFile > 1000000) {
+                echo "<script>
+                        alert('ukuran gambar terlalu besar');
+                    </script>";
+                return false;
+            }
+
+            // lulus pengecekan, gambar sia diupload
+            // generate nama gambar baru
+            $namaFileBaru = uniqid();
+            $namaFileBaru .= '.';
+            $namaFileBaru .= $ekstensiGambar;
+
+            move_uploaded_file($tmpName, 'img/profile_employee/' . $namaFileBaru);
+
+            return $namaFileBaru;
+        }
+
+        $old_image = $data['old_image'];
+
+        if ($_FILES['image']['error'] === 4) {
+            $image = $old_image;
+        } else {
+            $image = uploadImg();
+        }
+
         $employee_name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
         $unique_number = filter_input(INPUT_POST, 'unique', FILTER_SANITIZE_STRING);
         $employee_password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
         $edited_at = date("Y-m-d");
 
-        $query = "UPDATE employee_table SET employee_name = :employee_name, employee_unique_number = :unique_number, employee_password = :employee_password, edited_at = :edited_at WHERE employee_id = :employee_id";
+        $query = "UPDATE employee_table SET employee_name = :employee_name, employee_unique_number = :unique_number, employee_password = :employee_password, employee_image = :employee_image, edited_at = :edited_at WHERE employee_id = :employee_id";
 
         $this->db->query($query);
         $this->db->bind('employee_id', $data['id']);
         $this->db->bind('employee_name', $employee_name);
         $this->db->bind('unique_number', $unique_number);
+        $this->db->bind('employee_image', $image);
         $this->db->bind('employee_password', $employee_password);
         $this->db->bind('edited_at', $edited_at);
         $this->db->execute();
@@ -55,12 +163,21 @@ class EmployeeModel
 
     public function delete_employee($id)
     {
+        // $q = "SELECT * from " .  $this->table . " where employee_id= :id";
+        // $this->db->query($q);
+        // $this->db->bind('id',  $id);
+        // $this->db->execute();
+
+
+        // unlink("http://localhost:8080/Attendance-App/public/img/profile_employee/" . $this->db->single()['employee_image']);
+
+
+
         $query = "DELETE FROM " .  $this->table . " WHERE employee_id = :id";
         $this->db->query($query);
         $this->db->bind('id',  $id);
 
         $this->db->execute();
-
         return $this->db->rowCount();
     }
 

@@ -4,7 +4,7 @@ class Employee extends Controller
 {
     public function index()
     {
-        $data = $this->model('Employee_model')->getAll();
+        $data = $this->model('EmployeeModel')->getEmployees();
         $this->view('templates/header');
         $this->view('employee/index', $data);
         $this->view('templates/footer');
@@ -44,7 +44,7 @@ class Employee extends Controller
 
     public function add()
     {
-        if ($this->model('Employee_model')->add_employee($_POST) > 0) {
+        if ($this->model('EmployeeModel')->add_employee($_POST) > 0) {
             Flasher::setFlash('berhasil', 'ditambahkan', 'success');
             header('location: ' . BASEURL . '/Employee');
             exit;
@@ -57,12 +57,12 @@ class Employee extends Controller
 
     public function getEmployee()
     {
-        echo json_encode($this->model('Employee_model')->getSingle($_POST['id']));
+        echo json_encode($this->model('EmployeeModel')->getSingle($_POST['id']));
     }
 
     public function update()
     {
-        if ($this->model('Employee_model')->update_employee($_POST) > 0) {
+        if ($this->model('EmployeeModel')->update_employee($_POST) > 0) {
             Flasher::setFlash('berhasil', 'diubah', 'success');
             header('location: ' . BASEURL . '/Employee');
             exit;
@@ -75,7 +75,7 @@ class Employee extends Controller
 
     public function delete($id)
     {
-        if ($this->model('Employee_model')->delete_employee($id) > 0) {
+        if ($this->model('EmployeeModel')->delete_employee($id) > 0) {
             Flasher::setFlash('berhasil', 'dihapus', 'success');
             header('location: ' . BASEURL . '/Employee');
             exit;

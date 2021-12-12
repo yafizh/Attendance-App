@@ -22,6 +22,7 @@
             <thead>
                 <tr>
                     <th scope="col">No</th>
+                    <th scope="col">Image</th>
                     <th scope="col">Name</th>
                     <th scope="col">Unique number</th>
                     <th scope="col">password</th>
@@ -36,6 +37,9 @@
                 foreach ($data as $data) { ?>
                     <tr>
                         <td><?= $i; ?></td>
+                        <td>
+                            <img src="<?= BASEURL; ?>/img/profile_employee/<?= $data['employee_image']; ?>" alt="pict" style="width: 130px; height: 170px;">
+                        </td>
                         <td><?= $data['employee_name']; ?></td>
                         <td><?= $data['employee_unique_number']; ?></td>
                         <td><?= $data['employee_password']; ?></td>
@@ -62,14 +66,25 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="formModalLabel">Tambah Data Mahasiswa</h5>
+                    <h5 class="modal-title" id="formModalLabel">Tambah Data Karyawan</h5>
                     <button type="button" class="role" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= BASEURL ?>/Employee/add" method="post">
+                    <form action="<?= BASEURL ?>/Employee/add" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" id="id">
+                        <input type="hidden" name="old_image" id="old_image">
+
+                        <div class="form-group">
+                            <label for="image" class="col-form-label">Profile Image</label><br>
+                            <img src="<?= BASEURL ?>/img/default.png" id="show" style="width: 80px; height: 100px;" class="img-thumbnail img-preview">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="image" name="image" onchange="previewImg()">
+                                <label class="custom-file-label" id="lab" for="image"></label>    
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="name">Nama Karyawan</label>
                             <input type="text" class="form-control" id="name" name="name" autocomplete="off">
