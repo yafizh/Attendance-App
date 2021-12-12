@@ -23,14 +23,14 @@ $(function(){
         $('#unique').val('');
         $('#password').val('');
         $('#lab').text('Pilih Gambar...');
-        $('#show').attr('src', 'http://localhost:8080/Attendance-App/public/img/profile_employee/default.png');
+        $('#show').attr('src', 'http://localhost/Attendance-App/public/img/profile_employee/default.png');
             
     });
 
     $('.edit_employee').on('click', function(){
         $('#formModalLabel').html('Ubah data Karyawan');    
         $('.modal-footer button[type=submit]').html('Ubah data');
-        $('.modal-body form' ).attr('action', 'http://localhost:8080/Attendance-App/public/Employee/update');
+        $('.modal-body form' ).attr('action', 'http://localhost/Attendance-App/public/Employee/update');
     
         const id = $(this).data('id');
         console.log(id);
@@ -45,7 +45,7 @@ $(function(){
                 $('#password').val(data.employee_password);
                 $('#lab').text(data.employee_image);
                 $('#old_image').text(data.employee_image);
-                $('#show').attr('src', 'http://localhost:8080/Attendance-App/public/img/profile_employee/' + data.employee_image);
+                $('#show').attr('src', 'http://localhost/Attendance-App/public/img/profile_employee/' + data.employee_image);
                 $('#id').val(data.employee_id);
                 console.log(data);
             }
