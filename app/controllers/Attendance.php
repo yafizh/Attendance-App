@@ -28,10 +28,7 @@ class Attendance extends Controller
 
     public function getMonthlyAttendanceData()
     {
-        date_default_timezone_set("Asia/Kuala_Lumpur");
-        $month_now = date("m");
-        $year_now = date("Y");
-        $data = $this->model('AttendanceModel')->getMonthlyAttendance($month_now, $year_now);
+        $data = $this->model('AttendanceModel')->getMonthlyAttendance();
         echo json_encode($data);
     }
 
