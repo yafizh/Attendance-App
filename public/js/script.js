@@ -1,15 +1,29 @@
+function previewImg(){
+    const img = document.querySelector("#image");
+    const imgLabel = document.querySelector(".custom-file-label");
+    const imgShow = document.querySelector(".img-preview");
+
+    imgLabel.textContent = img.files[0].name;
+
+    const fileImg = new FileReader();
+    fileImg.readAsDataURL(img.files[0]);
+
+    fileImg.onload = function(e){
+        imgShow.src = e.target.result;
+    }
+}
+
 
 // for add employee
 $(function(){
     $('.add_employee').on('click', function(){
         $('#formModalLabel').html('Tambah data Karyawan');
         $(".modal-footer button[type=submit]").html('Tambah data');
-        $('#kodeBuku').val('');
-        $('#judul').val('');
-        $('#pengarang').val('');
-        $('#penerbit').val('');
-        $('#tahunTerbit').val('');
-        $('#stok').val('');
+        $('#name').val('');
+        $('#unique').val('');
+        $('#password').val('');
+        $('#lab').text('Pilih Gambar...');
+        $('#show').attr('src', 'http://localhost:8080/Attendance-App/public/img/profile_employee/default.png');
             
     });
 
@@ -29,6 +43,9 @@ $(function(){
                 $('#name').val(data.employee_name);
                 $('#unique').val(data.employee_unique_number);
                 $('#password').val(data.employee_password);
+                $('#lab').text(data.employee_image);
+                $('#old_image').text(data.employee_image);
+                $('#show').attr('src', 'http://localhost:8080/Attendance-App/public/img/profile_employee/' + data.employee_image);
                 $('#id').val(data.employee_id);
                 console.log(data);
             }
@@ -36,3 +53,7 @@ $(function(){
         });
     });
 });
+
+
+
+
