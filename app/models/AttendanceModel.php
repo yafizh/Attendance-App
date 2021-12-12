@@ -67,13 +67,14 @@ class AttendanceModel
         return $this->db->single();
     }
 
-    public function getAttendance($employee_id)
+    public function getAttendanceHistory($employee_id)
     {
         date_default_timezone_set("Asia/Kuala_Lumpur");
         $month_now = date("m");
         $year_now = date("Y");
 
-        $query = "SELECT b.employee_name, b.employee_unique_number, DATE(a.created_at),
+        $query = "
+            SELECT b.employee_name, b.employee_unique_number, DATE(a.created_at) AS attendance_date,
             (SELECT TIME(employee_attendance_table.created_at)
                 FROM employee_attendance_table INNER JOIN employee_table ON employee_table.employee_id=employee_attendance_table.employee_id WHERE employee_attendance_table.attendance_type='PAGI' AND employee_attendance_table.employee_id=a.employee_id AND DATE(employee_attendance_table.created_at)=DATE(b.created_at)) AS PAGI, 
             (SELECT TIME(employee_attendance_table.created_at)  

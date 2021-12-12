@@ -1,6 +1,6 @@
 <?php
 
-class Employee_model
+class EmployeeModel
 {
     private $table = 'employee_table';
     private $db;
@@ -64,7 +64,7 @@ class Employee_model
         return $this->db->rowCount();
     }
 
-    public function getAll()
+    public function getEmployees()
     {
         $this->db->query('SELECT * FROM ' . $this->table);
         return $this->db->resultSet();

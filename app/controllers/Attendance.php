@@ -5,7 +5,7 @@ class Attendance extends Controller
     public function index()
     {
         $data['attendance_code'] = $this->model('HomeModel')->getAttendanceCodeToday();
-        $data["employee_data"] = $this->model('Employee_model')->getEmployeeAttendanceToday();
+        $data["employee_data"] = $this->model('EmployeeModel')->getEmployeeAttendanceToday();
         $this->view('templates/header');
         $this->view('attendance/index', $data);
         $this->view('templates/footer');
@@ -13,7 +13,7 @@ class Attendance extends Controller
 
     public function getAllAttendance()
     {
-        $data = $this->model('Employee_model')->getAll();
+        $data = $this->model('EmployeeModel')->getEmployees();
         $this->view('templates/header');
         $this->view('attendance/all_employee_attendance', $data);
         $this->view('templates/footer');
@@ -35,9 +35,9 @@ class Attendance extends Controller
         echo json_encode($data);
     }
 
-    public function detail($employee_id)
+    public function attendanceHistory($employee_id)
     {
-        $data = $this->model('AttendanceModel')->getAttendance($employee_id);
+        $data = $this->model('AttendanceModel')->getAttendanceHistory($employee_id);
         echo json_encode($data);
     }
 }
