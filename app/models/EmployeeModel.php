@@ -134,8 +134,7 @@ class EmployeeModel
             return $namaFileBaru;
         }
 
-        $old_image = $data['old_image'];
-
+        $old_image = $_POST['old_image'];
         if ($_FILES['image']['error'] === 4) {
             $image = $old_image;
         } else {
