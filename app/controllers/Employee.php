@@ -18,38 +18,36 @@ class Employee extends Controller
         $this->view('templates/footer');
     }
 
-    public function presensi($nip)
+    public function postAttendance($nip)
     {
-        if ($this->model('HomeModel')->getAttendanceCodeToday()["attendance_unique_code"] == strtoupper($_POST['absen_code'])) {
-            $type = '';
+        if (
+            $this->model('HomeModel')->getAttendanceCodeToday()["attendance_unique_code"] == strtoupper($_POST['absen_code'])
+            &&
+            $employee_id = $this->model('EmployeeModel')->getEmployeeIdByEmployeeNip($nip)["employee_id"]
+        ) {
+            $data = $this->model('AttendanceModel')->getAttendanceToday($employee_id);
+            $type = ($data["PAGI"] == "00:00:00") ? "PAGI" : "SORE";
 
-            $data = $this->model('AttendanceModel')->getAttendanceToday($_SESSION['employee_id']);
-            if ($data["PAGI"] == "00:00:00") {
-                $type = "PAGI";
+            if ($this->model('AttendanceModel')->putEmployeeAttendance($employee_id, $type) > 0) {
+                header('location: ' . BASEURL . '/Employee/nip/' . $nip);
+                exit;
             } else {
-                $type = "SORE";
+                header('location: ' . BASEURL . '/Employee/nip/' . $nip);
+                exit;
             }
-            $this->model('AttendanceModel')->putEmployeeAttendance($_SESSION['employee_id'], $type);
         } else {
             echo "kode salah";
         }
     }
 
-    public function add_employee()
-    {
-        $this->view('templates/header');
-        $this->view('employee/add_employee');
-        $this->view('templates/footer');
-    }
-
-    public function add()
+    public function addEmployee()
     {
         if ($this->model('EmployeeModel')->add_employee($_POST) > 0) {
-            Flasher::setFlash('berhasil', 'ditambahkan', 'success');
+            Flasher::setFlash('Berhasil Menambahkan Data Karyawan', '', 'success');
             header('location: ' . BASEURL . '/Employee');
             exit;
         } else {
-            Flasher::setFlash('gagal', 'ditambahkan', 'danger');
+            Flasher::setFlash('Gagal Menambahkan Data Karyawan', '', 'danger');
             header('location: ' . BASEURL . '/Employee');
             exit;
         }
@@ -60,27 +58,27 @@ class Employee extends Controller
         echo json_encode($this->model('EmployeeModel')->getSingle($_POST['id']));
     }
 
-    public function update()
+    public function updateEmployee()
     {
         if ($this->model('EmployeeModel')->update_employee($_POST) > 0) {
-            Flasher::setFlash('berhasil', 'diubah', 'success');
+            Flasher::setFlash('Berhasil Mengedit Data Karyawan', '', 'success');
             header('location: ' . BASEURL . '/Employee');
             exit;
         } else {
-            Flasher::setFlash('gagal', 'diubah', 'danger');
+            Flasher::setFlash('Gagal Mengedit Data Karyawan', '', 'danger');
             header('location: ' . BASEURL . '/Employee');
             exit;
         }
     }
 
-    public function delete($id)
+    public function deleteEmployee($id)
     {
         if ($this->model('EmployeeModel')->delete_employee($id) > 0) {
-            Flasher::setFlash('berhasil', 'dihapus', 'success');
+            Flasher::setFlash('Berhasil Menghapus Data Karyawan', '', 'success');
             header('location: ' . BASEURL . '/Employee');
             exit;
         } else {
-            Flasher::setFlash('gagal', 'dihapus', 'danger');
+            Flasher::setFlash('Gagal Menghapus Data Karyawan', '', 'danger');
             header('location: ' . BASEURL . '/Employee');
             exit;
         }

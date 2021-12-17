@@ -187,6 +187,13 @@ class EmployeeModel
         return $this->db->resultSet();
     }
 
+    public function getEmployeeIdByEmployeeNip($nip)
+    {
+        $this->db->query('SELECT * FROM ' .  $this->table . ' WHERE employee_unique_number=:employee_unique_number');
+        $this->db->bind('employee_unique_number', $nip);
+        return $this->db->single();
+    }
+
     public function getSingle($id)
     {
         $this->db->query('SELECT * FROM ' .  $this->table . ' WHERE employee_id=:id');

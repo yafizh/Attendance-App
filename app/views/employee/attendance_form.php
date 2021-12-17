@@ -8,7 +8,7 @@
         <h1 class="h3 mb-0 text-gray-800">Presensi Hari ini</h1>
     </div>
     <?php if (!empty($data)) : ?>
-        <form action="<?= BASEURL ?>/Employee/presensi/<?= $_SESSION['employee_unique_number']; ?>" method="POST">
+        <form action="<?= BASEURL ?>/Employee/postAttendance/<?= $_SESSION['employee_unique_number']; ?>" method="POST">
             <div class="form-group">
                 <input type="text" name="absen_code" class="form-control">
             </div>

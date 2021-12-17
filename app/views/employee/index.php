@@ -21,39 +21,29 @@
         <table class="table table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th scope="col">No</th>
                     <th scope="col">Image</th>
                     <th scope="col">Name</th>
                     <th scope="col">Unique number</th>
-                    <th scope="col">password</th>
-                    <th scope="col">Created at</th>
-                    <th scope="col">Edited_at</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <?php
-                $i = 1;
-                foreach ($data as $data) { ?>
+                <?php $employees = $data;
+                foreach ($employees as $employee) : ?>
                     <tr>
-                        <td><?= $i; ?></td>
                         <td>
-                            <img src="<?= BASEURL; ?>/img/profile_employee/<?= $data['employee_image']; ?>" alt="pict" style="width: 130px; height: 170px;">
+                            <img src="<?= BASEURL; ?>/img/profile_employee/<?= $employee['employee_image']; ?>" alt="pict" style="width: 130px; height: 170px;">
                         </td>
-                        <td><?= $data['employee_name']; ?></td>
-                        <td><?= $data['employee_unique_number']; ?></td>
-                        <td><?= $data['employee_password']; ?></td>
-                        <td><?= $data['created_at']; ?></td>
-                        <td><?= $data['edited_at']; ?></td>
+                        <td><?= $employee['employee_name']; ?></td>
+                        <td><?= $employee['employee_unique_number']; ?></td>
                         <td>
                             <div class="row">
-                                <a href="<?= BASEURL; ?>/Employee/update/id=<?= $data['employee_id']; ?>" class='btn btn-sm btn-info mr-1 edit_employee' data-toggle="modal" data-target="#formModal" data-id="<?= $data['employee_id']; ?>"><i class="fas fa-edit"></i></a>
-                                <a href="<?= BASEURL; ?>/Employee/delete/<?= $data['employee_id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');"><i class="fas fa-trash-alt"></i></a>
+                                <button class='btn btn-sm btn-info mr-1 edit_employee' data-toggle="modal" data-target="#formModal" data-id="<?= $employee['employee_id']; ?>"><i class="fas fa-edit"></i></button>
+                                <a href="<?= BASEURL; ?>/Employee/deleteEmployee/<?= $employee['employee_id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');"><i class="fas fa-trash-alt"></i></a>
                             </div>
                         </td>
                     </tr>
-                <?php $i++;
-                }  ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
 
@@ -72,7 +62,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= BASEURL ?>/Employee/add" method="post" enctype="multipart/form-data">
+                    <form action="<?= BASEURL ?>/Employee/addEmployee" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" id="id">
                         <input type="hidden" name="old_image" id="old_image">
 
@@ -81,7 +71,7 @@
                             <img src="<?= BASEURL ?>/img/default.png" id="show" style="width: 80px; height: 100px;" class="img-thumbnail img-preview">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="image" name="image" onchange="previewImg()">
-                                <label class="custom-file-label" id="lab" for="image"></label>    
+                                <label class="custom-file-label" id="lab" for="image"></label>
                             </div>
                         </div>
 

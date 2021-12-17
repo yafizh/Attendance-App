@@ -1,3 +1,4 @@
+
 function previewImg(){
     const img = document.querySelector("#image");
     const imgLabel = document.querySelector(".custom-file-label");
@@ -30,14 +31,14 @@ $(function(){
     $('.edit_employee').on('click', function(){
         $('#formModalLabel').html('Ubah data Karyawan');    
         $('.modal-footer button[type=submit]').html('Ubah data');
-        $('.modal-body form' ).attr('action', 'http://localhost/Attendance-App/public/Employee/update');
+        $('.modal-body form' ).attr('action', 'http://localhost/Attendance-App/public/Employee/updateEmployee');
     
         const id = $(this).data('id');
         console.log(id);
         $.ajax({
             url: "http://localhost:8080/Attendance-App/public/Employee/getEmployee",
             data: {id : id},
-            method: 'post',
+            method: 'POST',
             dataType: 'json',
             success: function(data) {
                 $('#name').val(data.employee_name);
@@ -49,7 +50,6 @@ $(function(){
                 $('#id').val(data.employee_id);
                 console.log(data);
             }
-
         });
     });
 });
