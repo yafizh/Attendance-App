@@ -13,7 +13,7 @@
                 <input type="text" name="absen_code" class="form-control">
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary w-100">Masukkan Kode</button>
+                <button type="submit" value="<?= $data; ?>" name="attendance_type" class="btn btn-primary w-100"><?= ($data == "PAGI") ? "Presensi Pagi" : "Presensi Sore"; ?></button>
             </div>
         </form>
     <?php else : ?>

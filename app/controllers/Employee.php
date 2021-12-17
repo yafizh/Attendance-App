@@ -12,10 +12,12 @@ class Employee extends Controller
 
     public function nip($nip)
     {
-        $data = $this->model('HomeModel')->getAttendanceCodeToday();
-        $this->view('templates/header');
-        $this->view('employee/attendance_form', $data);
-        $this->view('templates/footer');
+        if ($employee_id = $this->model('EmployeeModel')->getEmployeeIdByEmployeeNip($nip)["employee_id"]) {
+            $data = ($this->model('AttendanceModel')->getAttendanceToday($employee_id)["PAGI"] == "00:00:00") ? "PAGI" : "SORE";
+            $this->view('templates/header');
+            $this->view('employee/attendance_form', $data);
+            $this->view('templates/footer');
+        }
     }
 
     public function postAttendance($nip)
@@ -25,16 +27,12 @@ class Employee extends Controller
             &&
             $employee_id = $this->model('EmployeeModel')->getEmployeeIdByEmployeeNip($nip)["employee_id"]
         ) {
-            $data = $this->model('AttendanceModel')->getAttendanceToday($employee_id);
-            $type = ($data["PAGI"] == "00:00:00") ? "PAGI" : "SORE";
-
-            if ($this->model('AttendanceModel')->putEmployeeAttendance($employee_id, $type) > 0) {
-                header('location: ' . BASEURL . '/Employee/nip/' . $nip);
-                exit;
-            } else {
-                header('location: ' . BASEURL . '/Employee/nip/' . $nip);
-                exit;
-            }
+            if (
+                $this->model('AttendanceModel')->putEmployeeAttendance($employee_id, $_POST['attendance_type'])
+                >
+                0
+            ) header('location: ' . BASEURL . '/Employee/nip/' . $nip);
+            else header('location: ' . BASEURL . '/Employee/nip/' . $nip);
         } else {
             echo "kode salah";
         }
@@ -42,14 +40,12 @@ class Employee extends Controller
 
     public function addEmployee()
     {
-        if ($this->model('EmployeeModel')->add_employee($_POST) > 0) {
+        if ($this->model('EmployeeModel')->postEmployee($_POST) > 0) {
             Flasher::setFlash('Berhasil Menambahkan Data Karyawan', '', 'success');
             header('location: ' . BASEURL . '/Employee');
-            exit;
         } else {
             Flasher::setFlash('Gagal Menambahkan Data Karyawan', '', 'danger');
             header('location: ' . BASEURL . '/Employee');
-            exit;
         }
     }
 
@@ -63,11 +59,9 @@ class Employee extends Controller
         if ($this->model('EmployeeModel')->update_employee($_POST) > 0) {
             Flasher::setFlash('Berhasil Mengedit Data Karyawan', '', 'success');
             header('location: ' . BASEURL . '/Employee');
-            exit;
         } else {
             Flasher::setFlash('Gagal Mengedit Data Karyawan', '', 'danger');
             header('location: ' . BASEURL . '/Employee');
-            exit;
         }
     }
 
@@ -76,11 +70,9 @@ class Employee extends Controller
         if ($this->model('EmployeeModel')->delete_employee($id) > 0) {
             Flasher::setFlash('Berhasil Menghapus Data Karyawan', '', 'success');
             header('location: ' . BASEURL . '/Employee');
-            exit;
         } else {
             Flasher::setFlash('Gagal Menghapus Data Karyawan', '', 'danger');
             header('location: ' . BASEURL . '/Employee');
-            exit;
         }
     }
 }

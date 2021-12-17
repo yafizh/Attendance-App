@@ -10,7 +10,7 @@ class EmployeeModel
         $this->db = new Database;
     }
 
-    public function add_employee($data)
+    public function postEmployee()
     {
 
         function uploadImg()
@@ -78,11 +78,7 @@ class EmployeeModel
         $this->db->bind('employee_image', $gambar);
         $this->db->bind('created_at', $created_at);
         $this->db->bind('edited_at', $created_at);
-
-        if ($this->db->execute()) {
-            header('location: ' . BASEURL . '/employee/add_employee');
-        }
-
+        $this->db->execute();
         return $this->db->rowCount();
     }
 
@@ -162,16 +158,6 @@ class EmployeeModel
 
     public function delete_employee($id)
     {
-        // $q = "SELECT * from " .  $this->table . " where employee_id= :id";
-        // $this->db->query($q);
-        // $this->db->bind('id',  $id);
-        // $this->db->execute();
-
-
-        // unlink("http://localhost:8080/Attendance-App/public/img/profile_employee/" . $this->db->single()['employee_image']);
-
-
-
         $query = "DELETE FROM " .  $this->table . " WHERE employee_id = :id";
         $this->db->query($query);
         $this->db->bind('id',  $id);

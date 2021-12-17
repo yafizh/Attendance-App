@@ -1,15 +1,3 @@
-<?php
-
-if (isset($_SESSION['employee_id'])) {
-    if ($_SESSION['login'] == 'admin') {
-        header('location: ' . BASEURL . '/Home');
-        exit;
-    } elseif ($_SESSION['login'] == $_SESSION['employee_unique_number']) {
-        header('location: ' . BASEURL . '/Employee/name/' . $_SESSION['employee_unique_number']);
-        exit;
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,7 +77,7 @@ if (isset($_SESSION['employee_id'])) {
                             <?php Flasher::flash(); ?>
                         </div>
                     </div>
-                    <form action="<?= BASEURL ?>/Login/postLogin" method="POST">
+                    <form action="<?= BASEURL ?>/Login/auth" method="POST">
                         <div class="right-inner-addon input-container form-group">
                             <i class='bx bx-user'></i>
                             <input type="text" class="cir form-control" placeholder="NIP" name="username" required>

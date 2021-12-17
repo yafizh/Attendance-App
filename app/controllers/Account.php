@@ -9,18 +9,14 @@ class Account extends Controller
         $this->view('templates/footer');
     }
 
-    public function postChangePassword()
+    public function changePassword()
     {
-        if ($this->model('AccountModel')->change($_POST) > 0) {
-            Flasher::setFlash('berhasil', 'diubah', 'success');
+        if ($this->model('AccountModel')->putPassword($_POST) > 0) {
+            Flasher::setFlash('Berhasil Mengubah Password', '', 'success');
             header('location: ' . BASEURL . '/account');
-            exit;
-        }else{
-            Flasher::setFlash('gagal', 'diubah', 'danger');
+        } else {
+            Flasher::setFlash('Gagal Mengubah Password', '', 'danger');
             header('location: ' . BASEURL . '/account');
-            exit;
         }
-
     }
-
 }

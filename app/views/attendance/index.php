@@ -2,10 +2,11 @@
 <?php
 $employees = $data['employee_data'];
 foreach ($employees as $index => $value) {
-    if ($employees[$index]["PAGI"] == null) {
+    if ($employees[$index]["PAGI"] == "00:00:00") {
         $employees[$index]["PAGI"] = "Presensi Pagi";
     } else {
         $one = explode(':', $value["PAGI"])[0] . explode(':', $value["PAGI"])[1];
+        $employees[$index]['PAGI'] = explode(':', $value["PAGI"])[0] . ":" . explode(':', $value["PAGI"])[1];
         if ((int)$one <= 730) {
             $employees[$index]["backgroundColorPagi"] = "bg-success";
         } else {
@@ -14,11 +15,12 @@ foreach ($employees as $index => $value) {
         $employees[$index]["textColorPagi"] = "text-white";
     }
 
-    if ($employees[$index]["SORE"] == null) {
+    if ($employees[$index]["SORE"] == "00:00:00") {
         $employees[$index]["SORE"] = "Presensi Sore";
         $employees[$index]["backgroundColorSore"] = "bg-light";
         $employees[$index]["textColorSore"] = "";
     } else {
+        $employees[$index]['SORE'] = explode(':', $value["SORE"])[0] . ":" . explode(':', $value["SORE"])[1];
         $employees[$index]["textColorSore"] = "text-white";
         $employees[$index]["backgroundColorSore"] = "bg-success";
     }
@@ -41,6 +43,7 @@ foreach ($employees as $index => $value) {
                     <img src="<?= BASEURL ?>/img/profile.jpg" class="card-img-top" alt="...">
                     <div class="card-body text-center">
                         <h5 class="card-title"><?= $employee['employee_name']; ?></h5>
+                        <h6 class="card-title"><?= $employee['employee_unique_number']; ?></h6>
                     </div>
                     <div class="card-footer d-flex p-0" style="overflow: hidden;">
                         <div style="flex:1;" class="p-2 text-center <?= $employee['backgroundColorPagi']; ?> <?= $employee['textColorPagi']; ?>"><?= $employee['PAGI']; ?></div>

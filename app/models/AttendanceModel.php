@@ -7,13 +7,12 @@ class AttendanceModel
 
     public function __construct()
     {
+        date_default_timezone_set("Asia/Kuala_Lumpur");
         $this->db = new Database;
     }
 
     public function initAttendanceToday($employee_id, $attendance_id, $attendance_type)
     {
-        date_default_timezone_set("Asia/Kuala_Lumpur");
-        $today = Date("Y-m-d");
         $query = "
                     INSERT INTO "
             . $this->table . " (
@@ -32,7 +31,7 @@ class AttendanceModel
         $this->db->bind('employee_id', $employee_id);
         $this->db->bind('attendance_id', $attendance_id);
         $this->db->bind('attendance_type', $attendance_type);
-        $this->db->bind('created_at', $today . ' 00:00:00');
+        $this->db->bind('created_at', Date("Y-m-d") . ' 00:00:00');
         $this->db->execute();
 
         return $this->db->rowCount();
@@ -40,10 +39,7 @@ class AttendanceModel
 
     public function putEmployeeAttendance($employee_id, $type)
     {
-        date_default_timezone_set("Asia/Kuala_Lumpur");
-        $date_today = Date("Y-m-d");
-        $date_come = Date("Y-m-d H:i:s");
-        $query = "UPDATE employee_attendance_table SET created_at='$date_come'
+        $query = "UPDATE employee_attendance_table SET created_at='" . Date("Y-m-d H:i:s") . "'
                     WHERE 
                         employee_id=:employee_id 
                     AND 
@@ -52,7 +48,7 @@ class AttendanceModel
                         attendance_type=:attendance_type";
         $this->db->query($query);
         $this->db->bind('employee_id', $employee_id);
-        $this->db->bind('created_at', $date_today);
+        $this->db->bind('created_at', Date("Y-m-d"));
         $this->db->bind('attendance_type', $type);
         $this->db->execute();
 
@@ -61,9 +57,6 @@ class AttendanceModel
 
     public function getAttendanceToday($employee_id)
     {
-        date_default_timezone_set("Asia/Kuala_Lumpur");
-        $today = date("Y-m-d");
-
         $query = "
             SELECT 
                 b.employee_name, 
@@ -82,7 +75,7 @@ class AttendanceModel
                     AND 
                     employee_attendance_table.employee_id=a.employee_id 
                     AND 
-                    DATE(employee_attendance_table.created_at)=DATE(b.created_at)) AS PAGI
+                    DATE(employee_attendance_table.created_at)=DATE(a.created_at)) AS PAGI
             FROM 
                 employee_attendance_table AS a 
             INNER JOIN 
@@ -92,7 +85,7 @@ class AttendanceModel
             WHERE 
                 a.employee_id=$employee_id 
                 AND 
-                (DATE(a.created_at) = '$today') 
+                (DATE(a.created_at) = '" . Date("Y-m-d") . "') 
                 AND 
                 a.attendance_type='PAGI'";
         $this->db->query($query);
@@ -101,17 +94,49 @@ class AttendanceModel
 
     public function getAttendanceHistory($employee_id)
     {
-        date_default_timezone_set("Asia/Kuala_Lumpur");
-        $month_now = date("m");
-        $year_now = date("Y");
-
         $query = "
-            SELECT b.employee_name, b.employee_unique_number, DATE(a.created_at) AS attendance_date,
-            (SELECT TIME(employee_attendance_table.created_at)
-                FROM employee_attendance_table INNER JOIN employee_table ON employee_table.employee_id=employee_attendance_table.employee_id WHERE employee_attendance_table.attendance_type='PAGI' AND employee_attendance_table.employee_id=a.employee_id AND DATE(employee_attendance_table.created_at)=DATE(b.created_at)) AS PAGI, 
-            (SELECT TIME(employee_attendance_table.created_at)  
-                FROM employee_attendance_table INNER JOIN employee_table ON employee_table.employee_id=employee_attendance_table.employee_id WHERE employee_attendance_table.attendance_type='SORE' AND employee_attendance_table.employee_id=a.employee_id AND DATE(employee_attendance_table.created_at)=DATE(b.created_at)) AS SORE
-        FROM employee_attendance_table AS a INNER JOIN employee_table AS b ON a.employee_id=b.employee_id WHERE a.employee_id=$employee_id AND (MONTH(a.created_at) = '$month_now') AND (YEAR(a.created_at) = '$year_now') GROUP BY DATE(a.created_at)";
+            SELECT 
+                b.employee_name, 
+                b.employee_unique_number, 
+                DATE(a.created_at) AS attendance_date,
+                (SELECT 
+                    TIME(employee_attendance_table.created_at) 
+                FROM 
+                    employee_attendance_table 
+                INNER JOIN 
+                    employee_table 
+                ON 
+                    employee_table.employee_id=employee_attendance_table.employee_id 
+                WHERE 
+                    employee_attendance_table.attendance_type='PAGI' 
+                    AND 
+                    employee_attendance_table.employee_id=a.employee_id 
+                    AND 
+                    DATE(employee_attendance_table.created_at)=DATE(a.created_at)) AS PAGI, 
+                (SELECT 
+                    TIME(employee_attendance_table.created_at) 
+                FROM 
+                    employee_attendance_table 
+                INNER JOIN 
+                    employee_table 
+                ON 
+                    employee_table.employee_id=employee_attendance_table.employee_id 
+                WHERE 
+                    employee_attendance_table.attendance_type='SORE' 
+                    AND 
+                    employee_attendance_table.employee_id=a.employee_id 
+                    AND 
+                    DATE(employee_attendance_table.created_at)=DATE(a.created_at)) AS SORE
+            FROM 
+                employee_attendance_table AS a 
+            INNER JOIN 
+                employee_table AS b 
+            ON 
+                a.employee_id=b.employee_id 
+            WHERE 
+                a.employee_id=$employee_id 
+            GROUP BY 
+                DATE(a.created_at)";
         $this->db->query($query);
         return $this->db->resultSet();
     }

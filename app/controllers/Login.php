@@ -7,7 +7,7 @@ class Login extends Controller
         $this->view('login/index');
     }
 
-    public function postLogin()
+    public function auth()
     {
         if ($_POST['username'] == 'admin') {
             if (!empty($this->model('LoginModel')->auth(true, $_POST))) {
@@ -18,7 +18,7 @@ class Login extends Controller
         } else {
             $employee = $this->model('LoginModel')->auth(false, $_POST);
             if (!empty($employee)) {
-                $_SESSION['login'] = $_POST['employee_unique_number'];
+                $_SESSION['login'] = $employee['employee_unique_number'];
                 header('location: ' . BASEURL . '/Employee/nip/' . $employee['employee_unique_number']);
                 exit;
             }

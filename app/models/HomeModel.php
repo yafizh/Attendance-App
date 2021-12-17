@@ -7,13 +7,13 @@ class HomeModel
 
     public function __construct()
     {
+        date_default_timezone_set("Asia/Kuala_Lumpur");
         $this->db = new Database;
     }
 
 
     public function postAttendanceCode()
     {
-        date_default_timezone_set("Asia/Kuala_Lumpur");
         $attendance_code = filter_input(INPUT_POST, 'attendance_code', FILTER_SANITIZE_STRING);
         $created_at = date("Y-m-d");
 
@@ -41,9 +41,7 @@ class HomeModel
 
     public function getAttendanceCodeToday()
     {
-        date_default_timezone_set("Asia/Kuala_Lumpur");
-        $today = Date('Y-m-d');
-        $this->db->query("SELECT * FROM " . $this->table . " WHERE created_at='$today'");
+        $this->db->query("SELECT * FROM " . $this->table . " WHERE created_at='" . Date('Y-m-d') . "'");
         return $this->db->single();
     }
 }

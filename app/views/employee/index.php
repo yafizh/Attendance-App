@@ -57,9 +57,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="formModalLabel">Tambah Data Karyawan</h5>
-                    <button type="button" class="role" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <div class="modal-body">
                     <form action="<?= BASEURL ?>/Employee/addEmployee" method="post" enctype="multipart/form-data">
@@ -96,3 +93,56 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const previewImg = () => {
+            const img = document.querySelector("#image");
+            const imgLabel = document.querySelector(".custom-file-label");
+            const imgShow = document.querySelector(".img-preview");
+
+            imgLabel.textContent = img.files[0].name;
+
+            const fileImg = new FileReader();
+            fileImg.readAsDataURL(img.files[0]);
+
+            fileImg.onload = function(e) {
+                imgShow.src = e.target.result;
+            }
+        }
+
+
+        $('.add_employee').on('click', function() {
+            $('#formModalLabel').html('Tambah data Karyawan');
+            $(".modal-footer button[type=submit]").html('Tambah data');
+            $('.modal-body form').attr('action', '<?= BASEURL ?>/Employee/addEmployee');
+            $('#name').val('');
+            $('#unique').val('');
+            $('#password').val('');
+            $('#lab').text('Pilih Gambar...');
+            $('#show').attr('src', '<?= BASEURL ?>/img/profile_employee/default.png');
+        });
+
+        $('.edit_employee').on('click', function() {
+            $('#formModalLabel').html('Ubah data Karyawan');
+            $('.modal-footer button[type=submit]').html('Ubah data');
+            $('.modal-body form').attr('action', '<?= BASEURL ?>/Employee/updateEmployee');
+
+            $.ajax({
+                url: "<?= BASEURL ?>/Employee/getEmployee",
+                data: {
+                    id: $(this).data('id')
+                },
+                method: 'POST',
+                dataType: 'json',
+                success: function(data) {
+                    $('#name').val(data.employee_name);
+                    $('#unique').val(data.employee_unique_number);
+                    $('#password').val(data.employee_password);
+                    $('#lab').text(data.employee_image);
+                    $('#old_image').val(data.employee_image);
+                    $('#show').attr('src', '<?= BASEURL ?>/img/profile_employee/' + data.employee_image);
+                    $('#id').val(data.employee_id);
+                }
+            });
+        });
+    </script>

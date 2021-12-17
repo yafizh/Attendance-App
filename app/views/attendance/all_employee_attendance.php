@@ -14,9 +14,10 @@
         <div class="d-flex flex-wrap">
             <?php foreach ($data as $employee) : ?>
                 <div class="card mr-3 mb-4" style="width: 18rem;" onclick="attendanceHistory(<?= $employee['employee_id']; ?>)">
-                    <img src="<?= BASEURL ?>/img/profile.jpg" class="card-img-top" alt="...">
+                    <img height="350" style="object-fit: cover;" src="<?= BASEURL ?>/img/profile_employee/<?= $employee['employee_image']; ?>" onerror="this.src='<?= BASEURL ?>/img/profile.jpg';" class="card-img-top" alt="...">
                     <div class="card-body text-center">
                         <h5 class="card-title"><?= $employee['employee_name']; ?></h5>
+                        <h6 class="card-title"><?= $employee['employee_unique_number']; ?></h6>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -59,10 +60,10 @@
                 console.log(response)
                 let attendanceHistory = [];
                 $.each(response, function(index, value) {
-                    if (!(value["PAGI"] == null)) {
+                    if (!(value["PAGI"] == "00:00:00")) {
                         let attendance_time = value['PAGI'].split(':')[0] + value['PAGI'].split(':')[1];
                         attendanceHistory.push({
-                            title: 'Presensi Pagi: ' + value['PAGI'],
+                            title: 'Presensi Pagi: ' + value['PAGI'].split(':')[0] + ":" + value['PAGI'].split(':')[1],
                             start: value['attendance_date'],
                             backgroundColor: (parseInt(attendance_time) <= 730) ? "green" : "red"
                         });
@@ -73,9 +74,9 @@
                             backgroundColor: 'gray',
                         });
 
-                    if (!(value["SORE"] == null))
+                    if (!(value["SORE"] == "00:00:00"))
                         attendanceHistory.push({
-                            title: 'Presensi Pulang: ' + value['SORE'],
+                            title: 'Presensi Pulang: ' + value['SORE'].split(':')[0] + ":" + value['SORE'].split(':')[1],
                             start: value['attendance_date'],
                             // backgroundColor: 'green',
                         });

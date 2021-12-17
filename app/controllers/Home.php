@@ -14,7 +14,7 @@ class Home extends Controller
     {
         $insertedId = (int)$this->model('HomeModel')->postAttendanceCode($_POST)["lastInsertedId"];
         if ($insertedId > 0) {
-            $employees = $this->model('Employee_model')->getAll();
+            $employees = $this->model('EmployeeModel')->getEmployees();
             foreach ($employees as $employee) {
                 $this->model('AttendanceModel')->initAttendanceToday($employee['employee_id'], $insertedId, 'PAGI');
                 $this->model('AttendanceModel')->initAttendanceToday($employee['employee_id'], $insertedId, 'SORE');

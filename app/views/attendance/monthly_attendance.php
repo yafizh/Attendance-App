@@ -32,7 +32,7 @@
                 });
                 $.each(attendancePerDate, function(index, value) {
                     $.each(value["employee"], function(index2, value2) {
-                        if (value2.PAGI == null)
+                        if (value2.PAGI == "00:00:00")
                             attendancePerDate[index]["null"]++;
                         else {
                             let attendance_time = parseInt((value2.PAGI.split(':')[0]).toString() + (value2.PAGI.split(':')[1]).toString());
