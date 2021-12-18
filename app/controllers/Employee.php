@@ -31,10 +31,16 @@ class Employee extends Controller
                 $this->model('AttendanceModel')->putEmployeeAttendance($employee_id, $_POST['attendance_type'])
                 >
                 0
-            ) header('location: ' . BASEURL . '/Employee/nip/' . $nip);
-            else header('location: ' . BASEURL . '/Employee/nip/' . $nip);
+            ) { 
+                Flasher::setFlash('absensi', 'berhasil', 'success');
+                header('location: ' . BASEURL . '/Employee/nip/' . $nip);
+            }else {
+                Flasher::setFlash('absensi', 'berhasil', 'success');   
+                header('location: ' . BASEURL . '/Employee/nip/' . $nip);
+            }
         } else {
-            echo "kode salah";
+            Flasher::setFlash('absensi', 'gagal, kode yang anda masukan salah', 'danger');
+            header('location: ' . BASEURL . '/Employee/nip/' . $nip);
         }
     }
 
