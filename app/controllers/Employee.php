@@ -41,17 +41,15 @@ class Employee extends Controller
                 $this->model('AttendanceModel')->putEmployeeAttendance($employee_id, $_POST['attendance_type'])
                 >
                 0
-            ) { 
-                Flasher::setFlash('absensi', 'berhasil', 'success');
+            ) {
+                Flasher::setFlash('Berhasil mengisi presensi', '', 'success');
                 header('location: ' . BASEURL . '/Employee/nip/' . $nip);
-            }else {
-                Flasher::setFlash('absensi', 'berhasil', 'success');   
-                header('location: ' . BASEURL . '/Employee/nip/' . $nip);
+                exit;
             }
-        } else {
-            Flasher::setFlash('absensi', 'gagal, kode yang anda masukan salah', 'danger');
-            header('location: ' . BASEURL . '/Employee/nip/' . $nip);
         }
+
+        Flasher::setFlash('Gagal mengisi presensi', '', 'danger');
+        header('location: ' . BASEURL . '/Employee/nip/' . $nip);
     }
 
     public function addEmployee()
