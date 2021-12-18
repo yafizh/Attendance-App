@@ -12,11 +12,21 @@ class Employee extends Controller
 
     public function nip($nip)
     {
+        // check nip sekaligus mengambil employee_id
         if ($employee_id = $this->model('EmployeeModel')->getEmployeeIdByEmployeeNip($nip)["employee_id"]) {
-            $data = ($this->model('AttendanceModel')->getAttendanceToday($employee_id)["PAGI"] == "00:00:00") ? "PAGI" : "SORE";
-            $this->view('templates/header');
-            $this->view('employee/attendance_form', $data);
-            $this->view('templates/footer');
+            // check apakah dia punya data presensi hari ini atau tidak
+            // apakah dia baru ditambahkan setelah code presensi dibuat atau sebelum
+            if ($employee_attendance = $this->model('AttendanceModel')->getAttendanceToday($employee_id)) {
+                $data = ($employee_attendance["PAGI"] == "00:00:00") ? "PAGI" : "SORE";
+                $this->view('templates/header');
+                $this->view('employee/attendance_form', $data);
+                $this->view('templates/footer');
+            } else {
+                $data = [];
+                $this->view('templates/header');
+                $this->view('employee/attendance_form', $data);
+                $this->view('templates/footer');
+            }
         }
     }
 

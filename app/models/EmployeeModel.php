@@ -189,22 +189,29 @@ class EmployeeModel
     public function getEmployeeAttendanceToday()
     {
         date_default_timezone_set("Asia/Kuala_Lumpur");
-        $date_today = Date("Y-m-d");
         $this->db->query("SELECT * FROM employee_table");
         $employees = $this->db->resultSet();
         foreach ($employees as $index => $value) {
-            $this->db->query("SELECT attendance_type, TIME(created_at) AS attendance_time FROM employee_attendance_table WHERE employee_id=" . $value['employee_id'] . " AND DATE(created_at)='" . $date_today . "'");
+            $this->db->query("
+                SELECT 
+                    attendance_type, 
+                    TIME(created_at) AS attendance_time 
+                FROM 
+                    employee_attendance_table 
+                WHERE 
+                    employee_id=" . $value['employee_id'] . " 
+                    AND 
+                    DATE(created_at)='" . Date("Y-m-d") . "'");
             $result = $this->db->resultSet();
             if (empty($result)) {
-                $employees[$index]['PAGI'] = null;
-                $employees[$index]['SORE'] = null;
+                array_splice($employees, $index, 1);
             } else {
                 if (count($result) == 2) {
                     $employees[$index][$result[0]['attendance_type']] = $result[0]['attendance_time'];
                     $employees[$index][$result[1]['attendance_type']] = $result[1]['attendance_time'];
                 } else {
                     $employees[$index][$result[0]['attendance_type']] = $result[0]['attendance_time'];
-                    $employees[$index]["SORE"] = null;
+                    $employees[$index]["SORE"] = "00:00:00";
                 }
             }
         }
