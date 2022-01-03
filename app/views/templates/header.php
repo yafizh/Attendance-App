@@ -1,3 +1,10 @@
+<?php
+
+if (!isset($_SESSION['login'])) {
+	header('location: ' . BASEURL . '/Login');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,7 +76,7 @@
 			<?php endif; ?>
 
 			<?php if ($_SESSION['login'] != 'admin') : ?>
-				<li class="nav-item active">
+				<li class="nav-item active" id="presensi2">
 					<a class="nav-link" id="employee_with_name" href="<?= BASEURL ?>/Employee/nip/<?php echo $_SESSION['employee_unique_number']; ?>">
 						<i class="fas fa-fw fa-wrench"></i>
 						<span>Presensi Hari ini</span>

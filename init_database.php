@@ -71,15 +71,16 @@ $sql = "
         employee_name,
         employee_unique_number,
         employee_password,
+        employee_image,
         created_at,
         edited_at
     ) VALUES 
-        (null, 'Nursahid Arya Suyudi', '18636655', 'arya', CURDATE(), CURDATE()),
-        (null, 'Nurcholis', '18636666', 'cholis', CURDATE(), CURDATE()),
-        (null, 'Diki Suti Praserta', '18636677', 'diki', CURDATE(), CURDATE()),
-        (null, 'Ibrahim', '18636688', 'ibrahim', CURDATE(), CURDATE()),
-        (null, 'Udin', '18636699', 'udin', CURDATE(), CURDATE()),
-        (null, 'Rania Nor Aida', '18635510', 'Rania', CURDATE(), CURDATE())";
+        (null, 'Nursahid Arya Suyudi', '18636655', 'arya','default.png', CURDATE(), CURDATE()),
+        (null, 'Nurcholis', '18636666', 'cholis','default.png', CURDATE(), CURDATE()),
+        (null, 'Diki Suti Praserta', '18636677', 'diki','default.png', CURDATE(), CURDATE()),
+        (null, 'Ibrahim', '18636688', 'ibrahim','default.png', CURDATE(), CURDATE()),
+        (null, 'Udin', '18636699', 'udin','default.png', CURDATE(), CURDATE()),
+        (null, 'Rania Nor Aida', '18635510', 'Rania','default.png', CURDATE(), CURDATE())";
 
 echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_table inserted successfully<br>") : ("Error creating table: " . $conn->error);
 while ($conn->next_result()) {;
@@ -120,8 +121,8 @@ $sql = "
         attendance_type ENUM('PAGI','SORE') NOT NULL,
         created_at DATETIME NULL,
         PRIMARY KEY (employee_attendance_id),
-        FOREIGN KEY (employee_id) REFERENCES employee_table (employee_id),
-        FOREIGN KEY (attendance_id) REFERENCES attendance_table (attendance_id)
+        FOREIGN KEY (employee_id) REFERENCES employee_table (employee_id) ON DELETE CASCADE,
+        FOREIGN KEY (attendance_id) REFERENCES attendance_table (attendance_id) ON DELETE CASCADE
     )";
 
 echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_attendance_table created successfully<br>") : ("Error creating table: " . $conn->error);

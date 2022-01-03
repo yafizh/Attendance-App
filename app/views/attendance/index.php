@@ -1,28 +1,31 @@
 <!-- End of Topbar -->
 <?php
-$employees = $data['employee_data'];
-foreach ($employees as $index => $value) {
-    if ($employees[$index]["PAGI"] == "00:00:00") {
-        $employees[$index]["PAGI"] = "Presensi Pagi";
-    } else {
-        $one = explode(':', $value["PAGI"])[0] . explode(':', $value["PAGI"])[1];
-        $employees[$index]['PAGI'] = explode(':', $value["PAGI"])[0] . ":" . explode(':', $value["PAGI"])[1];
-        if ((int)$one <= 730) {
-            $employees[$index]["backgroundColorPagi"] = "bg-success";
-        } else {
-            $employees[$index]["backgroundColorPagi"] = "bg-danger";
-        }
-        $employees[$index]["textColorPagi"] = "text-white";
-    }
 
-    if ($employees[$index]["SORE"] == "00:00:00") {
-        $employees[$index]["SORE"] = "Presensi Sore";
-        $employees[$index]["backgroundColorSore"] = "bg-light";
-        $employees[$index]["textColorSore"] = "";
-    } else {
-        $employees[$index]['SORE'] = explode(':', $value["SORE"])[0] . ":" . explode(':', $value["SORE"])[1];
-        $employees[$index]["textColorSore"] = "text-white";
-        $employees[$index]["backgroundColorSore"] = "bg-success";
+if (!empty($data['attendance_code'])) {
+    $employees = $data['employee_data'];
+    foreach ($employees as $index => $value) {
+        if ($employees[$index]["PAGI"] == "00:00:00") {
+            $employees[$index]["PAGI"] = "Presensi Pagi";
+        } else {
+            $time = explode(':', $value["PAGI"])[0] . explode(':', $value["PAGI"])[1];
+            $employees[$index]['PAGI'] = explode(':', $value["PAGI"])[0] . ":" . explode(':', $value["PAGI"])[1];
+            if ((int)$time <= 730) {
+                $employees[$index]["backgroundColorPagi"] = "bg-success";
+            } else {
+                $employees[$index]["backgroundColorPagi"] = "bg-danger";
+            }
+            $employees[$index]["textColorPagi"] = "text-white";
+        }
+
+        if ($employees[$index]["SORE"] == "00:00:00") {
+            $employees[$index]["SORE"] = "Presensi Sore";
+            $employees[$index]["backgroundColorSore"] = "bg-light";
+            $employees[$index]["textColorSore"] = "";
+        } else {
+            $employees[$index]['SORE'] = explode(':', $value["SORE"])[0] . ":" . explode(':', $value["SORE"])[1];
+            $employees[$index]["textColorSore"] = "text-white";
+            $employees[$index]["backgroundColorSore"] = "bg-success";
+        }
     }
 }
 
@@ -40,7 +43,7 @@ foreach ($employees as $index => $value) {
         <div class="d-flex flex-wrap">
             <?php foreach ($employees as $employee) : ?>
                 <div class="card mr-3 mb-4" style="width: 18rem;">
-                    <img src="<?= BASEURL ?>/img/profile.jpg" class="card-img-top" alt="...">
+                    <img height="350" style="object-fit: cover;" src="<?= BASEURL ?>/img/profile_employee/<?= $employee['employee_image']; ?>" class="card-img-top" alt="...">
                     <div class="card-body text-center">
                         <h5 class="card-title"><?= $employee['employee_name']; ?></h5>
                         <h6 class="card-title"><?= $employee['employee_unique_number']; ?></h6>

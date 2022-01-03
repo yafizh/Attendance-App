@@ -1,0 +1,7 @@
+config.php
+-ip wifi kantor
+-device
+
+aplikasi dihosting
+lalu cek apakah ip pegawai yang masuk website
+sesuai ip wifi kantor

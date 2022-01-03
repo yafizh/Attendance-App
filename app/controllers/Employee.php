@@ -70,7 +70,7 @@ class Employee extends Controller
 
     public function updateEmployee()
     {
-        if ($this->model('EmployeeModel')->update_employee($_POST) > 0) {
+        if ($this->model('EmployeeModel')->putEmployee($_POST) > 0) {
             Flasher::setFlash('Berhasil Mengedit Data Karyawan', '', 'success');
             header('location: ' . BASEURL . '/Employee');
         } else {
@@ -81,7 +81,7 @@ class Employee extends Controller
 
     public function deleteEmployee($id)
     {
-        if ($this->model('EmployeeModel')->delete_employee($id) > 0) {
+        if ($this->model('EmployeeModel')->deleteEmployee($id) > 0) {
             Flasher::setFlash('Berhasil Menghapus Data Karyawan', '', 'success');
             header('location: ' . BASEURL . '/Employee');
         } else {

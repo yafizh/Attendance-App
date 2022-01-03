@@ -14,26 +14,24 @@
         <div class="row mb-3">
             <div class="col-lg-6">
                 <button type="button" class="btn btn-primary add_employee" data-toggle="modal" data-target="#formModal">
-                    <i class='bx bx-plus-medical'></i> Tambah Data
+                    <i class='bx bx-plus-medical'></i> Tambah Data Karyawan
                 </button>
             </div>
         </div>
         <table class="table table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Unique number</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama Karyawan</th>
+                    <th scope="col">NIP</th>
+                    <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <?php $employees = $data;
-                foreach ($employees as $employee) : ?>
+                foreach ($employees as $index => $employee) : ?>
                     <tr>
-                        <td>
-                            <img src="<?= BASEURL; ?>/img/profile_employee/<?= $employee['employee_image']; ?>" alt="pict" style="width: 130px; height: 170px;">
-                        </td>
+                        <td><?= ($index + 1) ?></td>
                         <td><?= $employee['employee_name']; ?></td>
                         <td><?= $employee['employee_unique_number']; ?></td>
                         <td>
@@ -59,8 +57,8 @@
                     <h5 class="modal-title" id="formModalLabel">Tambah Data Karyawan</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= BASEURL ?>/Employee/addEmployee" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="id" id="id">
+                    <form action="<?= BASEURL ?>/Employee/addEmployee" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="employee_id" id="employee_id">
                         <input type="hidden" name="old_image" id="old_image">
 
                         <div class="form-group">
@@ -141,7 +139,7 @@
                     $('#lab').text(data.employee_image);
                     $('#old_image').val(data.employee_image);
                     $('#show').attr('src', '<?= BASEURL ?>/img/profile_employee/' + data.employee_image);
-                    $('#id').val(data.employee_id);
+                    $('#employee_id').val(data.employee_id);
                 }
             });
         });

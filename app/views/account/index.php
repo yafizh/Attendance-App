@@ -11,7 +11,7 @@
     <div class="d-flex">
         <form action="<?= BASEURL; ?>/Account/changePassword" method="POST" class="w-25">
             <div class="right-inner-addon input-container form-group">
-                <input type="password" class="form-control" id="old-password" name="old-password" placeholder="Password Lama">
+                <input type="password" class="form-control" id="old-password" name="old-password" placeholder="Password Lama" autocomplete="off">
             </div>
 
             <div class="right-inner-addon input-container form-group">
