@@ -33,7 +33,7 @@ $sql = "
         admin_password VARCHAR(255) NOT NULL
     )";
 
-echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_table created successfully<br>") : ("Error creating table: " . $conn->error);
+echo ($conn->multi_query($sql) === TRUE) ? ("1<br>") : ("Error creating table: " . $conn->error);
 while ($conn->next_result()) {;
 }
 
@@ -45,7 +45,7 @@ $sql = "
     ) VALUES 
         (null, 'admin', 'admin')";
 
-echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_table inserted successfully<br>") : ("Error creating table: " . $conn->error);
+echo ($conn->multi_query($sql) === TRUE) ? ("2<br>") : ("Error creating table: " . $conn->error);
 while ($conn->next_result()) {;
 }
 
@@ -61,7 +61,7 @@ $sql = "
         edited_at DATE NOT NULL
     )";
 
-echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_table created successfully<br>") : ("Error creating table: " . $conn->error);
+echo ($conn->multi_query($sql) === TRUE) ? ("3<br>") : ("Error creating table: " . $conn->error);
 while ($conn->next_result()) {;
 }
 
@@ -82,7 +82,7 @@ $sql = "
         (null, 'Udin', '18636699', 'udin','default.png', CURDATE(), CURDATE()),
         (null, 'Rania Nor Aida', '18635510', 'Rania','default.png', CURDATE(), CURDATE())";
 
-echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_table inserted successfully<br>") : ("Error creating table: " . $conn->error);
+echo ($conn->multi_query($sql) === TRUE) ? ("4<br>") : ("Error creating table: " . $conn->error);
 while ($conn->next_result()) {;
 }
 
@@ -95,7 +95,7 @@ $sql = "
         edited_at DATE NOT NULL
     )";
 
-echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_table created successfully<br>") : ("Error creating table: " . $conn->error);
+echo ($conn->multi_query($sql) === TRUE) ? ("5<br>") : ("Error creating table: " . $conn->error);
 while ($conn->next_result()) {;
 }
 
@@ -108,7 +108,7 @@ $sql = "
     ) VALUES 
         (null, 'KLMNAS', CURDATE(), CURDATE())";
 
-echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_table inserted successfully<br>") : ("Error creating table: " . $conn->error);
+echo ($conn->multi_query($sql) === TRUE) ? ("6<br>") : ("Error creating table: " . $conn->error);
 while ($conn->next_result()) {;
 }
 
@@ -125,7 +125,7 @@ $sql = "
         FOREIGN KEY (attendance_id) REFERENCES attendance_table (attendance_id) ON DELETE CASCADE
     )";
 
-echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_attendance_table created successfully<br>") : ("Error creating table: " . $conn->error);
+echo ($conn->multi_query($sql) === TRUE) ? ("7<br>") : ("Error creating table: " . $conn->error);
 while ($conn->next_result()) {;
 }
 
@@ -167,8 +167,115 @@ $sql = "
         (null, 6, 1, 'PAGI', CONCAT(CURRENT_DATE(),' ','08:30:00')),
         (null, 6, 1, 'SORE', CONCAT(CURRENT_DATE(),' ','16:30:00'))";
 
-echo ($conn->multi_query($sql) === TRUE) ? ("Table employee_attendance_table inserted successfully<br>") : ("Error creating table: " . $conn->error);
+echo ($conn->multi_query($sql) === TRUE) ? ("8<br>") : ("Error creating table: " . $conn->error);
 while ($conn->next_result()) {;
 }
+
+$sql = "
+    DROP VIEW IF EXISTS attendance_history_view; 
+    CREATE VIEW 
+        attendance_history_view 
+    AS SELECT 
+        a.employee_id,
+        b.employee_name, 
+        b.employee_unique_number, 
+        DATE(a.created_at) AS attendance_date,
+        (SELECT 
+            TIME(employee_attendance_table.created_at) 
+        FROM 
+            employee_attendance_table 
+        INNER JOIN 
+            employee_table 
+        ON 
+            employee_table.employee_id=employee_attendance_table.employee_id 
+        WHERE 
+            employee_attendance_table.attendance_type='PAGI' 
+            AND 
+            employee_attendance_table.employee_id=a.employee_id 
+            AND 
+            DATE(employee_attendance_table.created_at)=DATE(a.created_at)) AS PAGI, 
+        (SELECT 
+            TIME(employee_attendance_table.created_at) 
+        FROM 
+            employee_attendance_table 
+        INNER JOIN 
+            employee_table 
+        ON 
+            employee_table.employee_id=employee_attendance_table.employee_id 
+        WHERE 
+            employee_attendance_table.attendance_type='SORE' 
+            AND 
+            employee_attendance_table.employee_id=a.employee_id 
+            AND 
+            DATE(employee_attendance_table.created_at)=DATE(a.created_at)) AS SORE 
+    FROM 
+        employee_attendance_table AS a 
+    INNER JOIN 
+        employee_table AS b 
+    ON 
+        a.employee_id=b.employee_id";
+
+echo ($conn->multi_query($sql) === TRUE) ? ("9<br>") : ("Error creating table: " . $conn->error);
+while ($conn->next_result()) {;
+}
+
+
+$sql = "
+    DROP VIEW IF EXISTS monthly_attendance_view;
+    CREATE VIEW 
+        monthly_attendance_view 
+    AS SELECT 
+        b.employee_id,
+        b.employee_name, 
+        b.employee_unique_number, 
+        DATE(a.created_at) AS attendance_date,
+        (SELECT TIME(employee_attendance_table.created_at) FROM employee_attendance_table INNER JOIN employee_table ON employee_table.employee_id=employee_attendance_table.employee_id WHERE employee_attendance_table.attendance_type='PAGI' AND employee_attendance_table.employee_id=a.employee_id AND DATE(employee_attendance_table.created_at)=DATE(a.created_at)) AS PAGI, 
+        (SELECT TIME(employee_attendance_table.created_at) FROM employee_attendance_table INNER JOIN employee_table ON employee_table.employee_id=employee_attendance_table.employee_id WHERE employee_attendance_table.attendance_type='SORE' AND employee_attendance_table.employee_id=a.employee_id AND DATE(employee_attendance_table.created_at)=DATE(a.created_at)) AS SORE 
+    FROM 
+        employee_attendance_table AS a 
+    INNER JOIN 
+        employee_table AS b 
+    ON 
+        a.employee_id=b.employee_id ";
+
+echo ($conn->multi_query($sql) === TRUE) ? ("10<br>") : ("Error creating table: " . $conn->error);
+while ($conn->next_result()) {;
+}
+
+$sql = "
+    DROP VIEW IF EXISTS attendance_today_view;
+    CREATE VIEW 
+        attendance_today_view 
+    AS SELECT 
+        a.employee_id,
+        b.employee_name, 
+        b.employee_unique_number, 
+        DATE(a.created_at) AS created_at,
+        a.attendance_type, 
+        (SELECT 
+            TIME(employee_attendance_table.created_at) 
+        FROM 
+            employee_attendance_table 
+        INNER JOIN 
+            employee_table 
+        ON 
+            employee_table.employee_id=employee_attendance_table.employee_id 
+        WHERE 
+            employee_attendance_table.attendance_type='PAGI' 
+            AND 
+            employee_attendance_table.employee_id=a.employee_id 
+            AND 
+            DATE(employee_attendance_table.created_at)=DATE(a.created_at)) AS PAGI
+    FROM 
+        employee_attendance_table AS a 
+    INNER JOIN 
+        employee_table AS b 
+    ON 
+        a.employee_id=b.employee_id";
+
+echo ($conn->multi_query($sql) === TRUE) ? ("11<br>") : ("Error creating table: " . $conn->error);
+while ($conn->next_result()) {;
+}
+
 
 $conn->close();
