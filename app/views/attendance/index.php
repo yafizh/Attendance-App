@@ -6,6 +6,8 @@ if (!empty($data['attendance_code'])) {
     foreach ($employees as $index => $value) {
         if ($employees[$index]["PAGI"] == "00:00:00") {
             $employees[$index]["PAGI"] = "Presensi Pagi";
+            $employees[$index]["backgroundColorPagi"] = "bg-light";
+            $employees[$index]["textColorPagi"] = "";
         } else {
             $time = explode(':', $value["PAGI"])[0] . explode(':', $value["PAGI"])[1];
             $employees[$index]['PAGI'] = explode(':', $value["PAGI"])[0] . ":" . explode(':', $value["PAGI"])[1];
