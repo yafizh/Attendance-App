@@ -18,8 +18,8 @@ class Login extends Controller
         } else {
             $employee = $this->model('LoginModel')->auth(false, $_POST);
             if (!empty($employee)) {
-                $_SESSION['login'] = $employee['employee_unique_number'];
-                header('location: ' . BASEURL . '/Employee/nip/' . $employee['employee_unique_number']);
+                $_SESSION['login'] = $employee['employee_nip'];
+                header('location: ' . BASEURL . '/Employee/nip/' . $employee['employee_nip']);
                 exit;
             }
         }
