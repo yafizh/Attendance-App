@@ -33,7 +33,7 @@
                     <tr>
                         <td><?= ($index + 1) ?></td>
                         <td><?= $employee['employee_name']; ?></td>
-                        <td><?= $employee['employee_unique_number']; ?></td>
+                        <td><?= $employee['employee_nip']; ?></td>
                         <td>
                             <div class="row">
                                 <button class='btn btn-sm btn-info mr-1 edit_employee' data-toggle="modal" data-target="#formModal" data-id="<?= $employee['employee_id']; ?>"><i class="fas fa-edit"></i></button>
@@ -75,8 +75,8 @@
                             <input type="text" class="form-control" id="name" name="name" autocomplete="off">
                         </div>
                         <div class="form-group">
-                            <label for="unique">Unique Number</label>
-                            <input type="text" class="form-control" id="unique" name="unique" autocomplete="off">
+                            <label for="employee_nip">NIP</label>
+                            <input type="text" class="form-control" id="employee_nip" name="employee_nip" autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
@@ -114,7 +114,7 @@
             $(".modal-footer button[type=submit]").html('Tambah data');
             $('.modal-body form').attr('action', '<?= BASEURL ?>/Employee/addEmployee');
             $('#name').val('');
-            $('#unique').val('');
+            $('#employee_nip').val('');
             $('#password').val('');
             $('#lab').text('Pilih Gambar...');
             $('#show').attr('src', '<?= BASEURL ?>/img/profile_employee/default.png');
@@ -134,7 +134,7 @@
                 dataType: 'json',
                 success: function(data) {
                     $('#name').val(data.employee_name);
-                    $('#unique').val(data.employee_unique_number);
+                    $('#employee_nip').val(data.employee_nip);
                     $('#password').val(data.employee_password);
                     $('#lab').text(data.employee_image);
                     $('#old_image').val(data.employee_image);

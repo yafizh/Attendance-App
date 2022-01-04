@@ -65,14 +65,14 @@ class EmployeeModel
         }
 
         $employee_name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-        $unique_number = filter_input(INPUT_POST, 'unique', FILTER_SANITIZE_STRING);
+        $employee_nip = filter_input(INPUT_POST, 'employee_nip', FILTER_SANITIZE_STRING);
         $employee_password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
         $query = "
             INSERT INTO 
                 employee_table (
                     employee_name, 
-                    employee_unique_number, 
+                    employee_nip, 
                     employee_password, 
                     employee_image, 
                     created_at, 
@@ -80,7 +80,7 @@ class EmployeeModel
                 ) 
             VALUES (
                     :employee_name, 
-                    :unique_number, 
+                    :employee_nip, 
                     :employee_password, 
                     :employee_image, 
                     :created_at, 
@@ -88,7 +88,7 @@ class EmployeeModel
             )";
         $this->db->query($query);
         $this->db->bind('employee_name', $employee_name);
-        $this->db->bind('unique_number', $unique_number);
+        $this->db->bind('employee_nip', $employee_nip);
         $this->db->bind('employee_password', $employee_password);
         $this->db->bind('employee_image', $gambar);
         $this->db->bind('created_at', Date("Y-m-d"));
@@ -104,7 +104,7 @@ class EmployeeModel
 
         $employee_id = $_POST['employee_id'];
         $employee_name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-        $unique_number = filter_input(INPUT_POST, 'unique', FILTER_SANITIZE_STRING);
+        $employee_nip = filter_input(INPUT_POST, 'employee_nip', FILTER_SANITIZE_STRING);
         $employee_password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
         $query = "
@@ -112,7 +112,7 @@ class EmployeeModel
                 employee_table 
             SET 
                 employee_name = :employee_name, 
-                employee_unique_number = :unique_number, 
+                employee_nip = :employee_nip, 
                 employee_password = :employee_password, 
                 employee_image = :employee_image, 
                 edited_at = :edited_at 
@@ -122,7 +122,7 @@ class EmployeeModel
         $this->db->query($query);
         $this->db->bind('employee_id', $employee_id);
         $this->db->bind('employee_name', $employee_name);
-        $this->db->bind('unique_number', $unique_number);
+        $this->db->bind('employee_nip', $employee_nip);
         $this->db->bind('employee_image', $image);
         $this->db->bind('employee_password', $employee_password);
         $this->db->bind('edited_at', Date("Y-m-d"));
@@ -149,8 +149,8 @@ class EmployeeModel
 
     public function getEmployeeIdByEmployeeNip($nip)
     {
-        $this->db->query('SELECT * FROM ' .  $this->table . ' WHERE employee_unique_number=:employee_unique_number');
-        $this->db->bind('employee_unique_number', $nip);
+        $this->db->query('SELECT * FROM ' .  $this->table . ' WHERE employee_nip=:employee_nip');
+        $this->db->bind('employee_nip', $nip);
         return $this->db->single();
     }
 

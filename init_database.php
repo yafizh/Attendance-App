@@ -54,7 +54,7 @@ $sql = "
     CREATE TABLE employee_table (
         employee_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         employee_name VARCHAR(255) NOT NULL,
-        employee_unique_number VARCHAR(255) UNIQUE NOT NULL,
+        employee_nip VARCHAR(255) UNIQUE NOT NULL,
         employee_password VARCHAR(255) NOT NULL,
         employee_image VARCHAR(100) NOT NULL,
         created_at DATE NOT NULL,
@@ -69,7 +69,7 @@ $sql = "
     INSERT INTO employee_table (
         employee_id,
         employee_name,
-        employee_unique_number,
+        employee_nip,
         employee_password,
         employee_image,
         created_at,
@@ -178,7 +178,7 @@ $sql = "
     AS SELECT 
         a.employee_id,
         b.employee_name, 
-        b.employee_unique_number, 
+        b.employee_nip, 
         DATE(a.created_at) AS attendance_date,
         (SELECT 
             TIME(employee_attendance_table.created_at) 
@@ -227,7 +227,7 @@ $sql = "
     AS SELECT 
         b.employee_id,
         b.employee_name, 
-        b.employee_unique_number, 
+        b.employee_nip, 
         DATE(a.created_at) AS attendance_date,
         (SELECT TIME(employee_attendance_table.created_at) FROM employee_attendance_table INNER JOIN employee_table ON employee_table.employee_id=employee_attendance_table.employee_id WHERE employee_attendance_table.attendance_type='PAGI' AND employee_attendance_table.employee_id=a.employee_id AND DATE(employee_attendance_table.created_at)=DATE(a.created_at)) AS PAGI, 
         (SELECT TIME(employee_attendance_table.created_at) FROM employee_attendance_table INNER JOIN employee_table ON employee_table.employee_id=employee_attendance_table.employee_id WHERE employee_attendance_table.attendance_type='SORE' AND employee_attendance_table.employee_id=a.employee_id AND DATE(employee_attendance_table.created_at)=DATE(a.created_at)) AS SORE 
@@ -249,7 +249,7 @@ $sql = "
     AS SELECT 
         a.employee_id,
         b.employee_name, 
-        b.employee_unique_number, 
+        b.employee_nip, 
         DATE(a.created_at) AS created_at,
         a.attendance_type, 
         (SELECT 

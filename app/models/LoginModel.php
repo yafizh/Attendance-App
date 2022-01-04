@@ -42,16 +42,16 @@ class LoginModel
                         FROM "
                 . $this->employee_table . " 
                         WHERE 
-                            employee_unique_number=:employee_unique_number
+                            employee_nip=:employee_nip
                             AND
                             employee_password=:employee_password";
 
             $this->db->query($query);
-            $this->db->bind('employee_unique_number', $username);
+            $this->db->bind('employee_nip', $username);
             $this->db->bind('employee_password', $password);
             $this->db->execute();
 
-            $_SESSION['employee_unique_number'] = $username;
+            $_SESSION['employee_nip'] = $username;
 
             return $this->db->single();
         }
