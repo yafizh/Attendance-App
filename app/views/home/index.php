@@ -4,7 +4,7 @@
 <div class="container-fluid h-75">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        <h1 class="h3 mb-0 text-gray-800">Kode Presensi</h1>
     </div>
     <div class="flex-column d-flex justify-content-center align-items-center h-100">
         <form action="<?= BASEURL ?>/Home/addAttendanceCode" method="POST">

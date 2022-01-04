@@ -41,7 +41,7 @@ if (!isset($_SESSION['login'])) {
 
 			<!-- Sidebar - Brand -->
 			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-				<div class="sidebar-brand-text mx-3">Attendance App</div>
+				<div class="sidebar-brand-text mx-3">Aplikasi Presensi</div>
 			</a>
 
 			<hr class="sidebar-divider my-0">
