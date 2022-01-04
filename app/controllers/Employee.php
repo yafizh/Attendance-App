@@ -1,5 +1,7 @@
 <?php
 
+use function PHPSTORM_META\type;
+
 class Employee extends Controller
 {
     public function index()
@@ -54,8 +56,12 @@ class Employee extends Controller
 
     public function addEmployee()
     {
-        if ($this->model('EmployeeModel')->postEmployee($_POST) > 0) {
+        $isSuccess = $this->model('EmployeeModel')->postEmployee($_POST);
+        if ($isSuccess > 0 && gettype($isSuccess) == "int") {
             Flasher::setFlash('Berhasil Menambahkan Data Karyawan', '', 'success');
+            header('location: ' . BASEURL . '/Employee');
+        } else if(gettype($isSuccess) == "string") {
+            Flasher::setFlash('Gagal Menambahkan Data Karyawan', $isSuccess, 'danger');
             header('location: ' . BASEURL . '/Employee');
         } else {
             Flasher::setFlash('Gagal Menambahkan Data Karyawan', '', 'danger');

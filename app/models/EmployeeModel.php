@@ -20,10 +20,10 @@ class EmployeeModel
 
         // cek apakah tidak ada gambar yang diupload
         if ($error === 4) {
-            echo "<script>
-                        alert('pilih gambar terlebih dahulu!');
-                    </script>";
-            return false;
+            return [
+                'isSuccess' => false,
+                'message' => "Pilih gambar terlebih dahulu!"
+            ];
         }
 
         // cek apakah yang diupload adalah gambar
@@ -31,19 +31,19 @@ class EmployeeModel
         $ekstensiGambar = explode('.', $namaFile);   // explode = memecah string menggunakan delimiter
         $ekstensiGambar = strtolower(end($ekstensiGambar));
         if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
-            echo "<script>
-                        alert('yang anda upload bukan gambar!');
-                    </script>";
-            return false;
+            return [
+                'isSuccess' => false,
+                'message' => "Yang anda upload bukan gambar!"
+            ];
         }
 
 
         // cek jika ukurannya terlalu besar
         if ($ukuranFile > 1000000) {
-            echo "<script>
-                        alert('ukuran gambar terlalu besar');
-                    </script>";
-            return false;
+            return [
+                'isSuccess' => false,
+                'message' => "Ukuran gambar terlalu besar"
+            ];            
         }
 
         // lulus pengecekan, gambar sia diupload
@@ -54,14 +54,17 @@ class EmployeeModel
 
         move_uploaded_file($tmpName, 'img/profile_employee/' . $namaFileBaru);
 
-        return $namaFileBaru;
+        return [
+            'isSuccess' => true,
+            'message' => $namaFileBaru
+        ];   
     }
 
     public function postEmployee()
     {
         $gambar = $this->uploadImg();
-        if (!$gambar) {
-            return false;
+        if (!$gambar['isSuccess']) {
+            return $gambar['message'];
         }
 
         $employee_name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
@@ -90,7 +93,7 @@ class EmployeeModel
         $this->db->bind('employee_name', $employee_name);
         $this->db->bind('employee_nip', $employee_nip);
         $this->db->bind('employee_password', $employee_password);
-        $this->db->bind('employee_image', $gambar);
+        $this->db->bind('employee_image', $gambar['message']);
         $this->db->bind('created_at', Date("Y-m-d"));
         $this->db->bind('edited_at', Date("Y-m-d"));
         $this->db->execute();
