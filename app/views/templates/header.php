@@ -50,7 +50,7 @@ if (!isset($_SESSION['login'])) {
 				<li class="nav-item active" id="dashboard">
 					<a class="nav-link" href="<?= BASEURL ?>/Home">
 						<i class="fas fa-fw fa-tachometer-alt"></i>
-						<span>Dashboard</span></a>
+						<span>Kode Presensi</span></a>
 				</li>
 
 				<li class="nav-item" id="karyawan">

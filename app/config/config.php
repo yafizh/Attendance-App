@@ -9,4 +9,4 @@ define('DB_PASS', '');
 define('DB_NAME', 'attendance_app_db');
 
 // 
-define('ACCESS_IP_ADDRESS', '');
+define('ACCESS_IP_ADDRESS', '1233213');
